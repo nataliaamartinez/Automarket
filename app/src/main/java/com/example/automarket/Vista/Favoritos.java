@@ -145,7 +145,7 @@ public class Favoritos extends AppCompatActivity {
         String marca = favoritoTexto.split("\n")[0].split(":")[1].trim();
         String modelo = favoritoTexto.split("\n")[1].split(":")[1].trim();
 
-        String urlBorrarFavorito = URL_BORRAR_FAV + "?vendedor_id=" + usuarioId + "&marca=" + marca + "&modelo=" + modelo;
+        String urlBorrarFavorito = URL_BORRAR_FAV + "?favorito_id=" + position + "&usuario_id=" + usuarioId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlBorrarFavorito,

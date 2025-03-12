@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nombre de usuario"
-        android:inputType="text" />
+        android:inputType="text"
+        android:minHeight="48dp" />
 
     <!-- Campo para el correo electrónico -->
     <EditText
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Correo electrónico"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp" />
 
     <!-- Campo para la nueva contraseña -->
     <EditText
@@ -27,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nueva contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
 
     <!-- Campo para confirmar la nueva contraseña -->
     <EditText
@@ -35,7 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirmar nueva contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
 
     <!-- Botón para guardar cambios -->
     <Button

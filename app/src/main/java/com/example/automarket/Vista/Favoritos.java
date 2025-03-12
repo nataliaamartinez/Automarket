@@ -1,27 +1,28 @@
 package com.example.automarket.Vista;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.automarket.R;
 import com.example.automarket.Utils;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,10 @@ public class Favoritos extends AppCompatActivity {
     private TextView tvNoFavoritos;
     private List<String> listaFavoritos;
     private ArrayAdapter<String> favoritosAdapter;
+    private int selectedItemPosition = -1;
 
-    // Asegúrate de que la URL esté correcta, y que `Utils.IP` esté bien configurada.
-    private static final String URL_LISTAR_FAV = Utils.IP + "listar_fav.php"; // Asegúrate de que esta URL esté bien definida
+    private static final String URL_LISTAR_FAV = Utils.IP + "listar_fav.php";
+    private static final String URL_BORRAR_FAV = Utils.IP + "borrar_fav.php"; // Asegúrate de que esta URL sea correcta
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +44,22 @@ public class Favoritos extends AppCompatActivity {
         listViewFavoritos = findViewById(R.id.listViewFavoritos);
         tvNoFavoritos = findViewById(R.id.tvNoFavoritos);
 
-        // Inicializar la lista de favoritos
         listaFavoritos = new ArrayList<>();
         favoritosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaFavoritos);
         listViewFavoritos.setAdapter(favoritosAdapter);
 
-        // Ocultar la lista hasta que se carguen los favoritos
         listViewFavoritos.setVisibility(View.GONE);
         tvNoFavoritos.setVisibility(View.VISIBLE);
 
-        // Llamar a la función para obtener los favoritos
         obtenerFavoritos();
     }
 
     private void obtenerFavoritos() {
-        // Obtener el ID del usuario (esto lo puedes obtener al iniciar sesión, por ejemplo)
         String usuarioId = "1"; // Cambia esto por el ID real del usuario
 
-        // Crear una cola de solicitudes (RequestQueue)
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        // Crear la URL con el ID del usuario como parámetro
         String urlConParametros = URL_LISTAR_FAV + "?vendedor_id=" + usuarioId;
 
-        // Crear la solicitud JSON
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 urlConParametros,
@@ -73,7 +67,7 @@ public class Favoritos extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("Favoritos", "Respuesta del servidor: " + response.toString());  // Log de la respuesta
+                        Log.d("Favoritos", "Respuesta del servidor: " + response.toString());
 
                         try {
                             listaFavoritos.clear();
@@ -81,7 +75,6 @@ public class Favoritos extends AppCompatActivity {
                             if (response.length() > 0) {
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject favoritoJson = response.getJSONObject(i);
-
                                     String marca = favoritoJson.getString("marca");
                                     String modelo = favoritoJson.getString("modelo");
                                     String descripcion = favoritoJson.getString("descripcion");
@@ -91,7 +84,6 @@ public class Favoritos extends AppCompatActivity {
                                             "Modelo: " + modelo + "\n" +
                                             "Precio: " + precio + "€\n" +
                                             "Descripción: " + descripcion;
-
                                     listaFavoritos.add(favoritoTexto);
                                 }
 
@@ -108,17 +100,67 @@ public class Favoritos extends AppCompatActivity {
                         }
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(com.android.volley.VolleyError error) {
-                        // Log para ver los detalles del error de la conexión
-                        Log.e("Favoritos", "Error al conectar con el servidor: " + error.getMessage());  // Log de error
-                        error.printStackTrace();
-                        Toast.makeText(Favoritos.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                error -> {
+                    Log.e("Favoritos", "Error al conectar con el servidor: " + error.getMessage());
+                    error.printStackTrace();
+                    Toast.makeText(Favoritos.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                }
+        );
 
-        // Agregar la solicitud a la cola
         requestQueue.add(jsonArrayRequest);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_favoritos, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_borrar) {
+            if (selectedItemPosition != -1) {  // Verificar si se ha seleccionado algo
+                String selectedItem = listaFavoritos.get(selectedItemPosition);
+                mostrarConfirmacionBorrado(selectedItem, selectedItemPosition);
+            } else {
+                Toast.makeText(this, "Debes seleccionar un anuncio", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void mostrarConfirmacionBorrado(String favorito, int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmación")
+                .setMessage("¿Estás seguro de que quieres borrar este favorito?")
+                .setPositiveButton("Sí", (dialog, which) -> borrarFavorito(position))
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void borrarFavorito(int position) {
+        String favoritoTexto = listaFavoritos.get(position);
+        String usuarioId = "1"; // Cambia esto por el ID real del usuario
+        String marca = favoritoTexto.split("\n")[0].split(":")[1].trim();
+        String modelo = favoritoTexto.split("\n")[1].split(":")[1].trim();
+
+        String urlBorrarFavorito = URL_BORRAR_FAV + "?vendedor_id=" + usuarioId + "&marca=" + marca + "&modelo=" + modelo;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlBorrarFavorito,
+                response -> {
+                    if ("success".equals(response)) {
+                        listaFavoritos.remove(position);
+                        favoritosAdapter.notifyDataSetChanged();
+                        Toast.makeText(Favoritos.this, "Favorito eliminado correctamente", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Favoritos.this, "Error al eliminar el favorito", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(Favoritos.this, "Error de conexión", Toast.LENGTH_SHORT).show()
+        );
+
+        requestQueue.add(stringRequest);
     }
 }

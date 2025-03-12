@@ -153,6 +153,13 @@ public class Pantalla_Principal extends AppCompatActivity {
                 startActivity(intent); // Esto ya inicia la nueva pantalla y se ejecuta obtenerCoches() automáticamente
             }
         });
+        btnMoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Pantalla_Principal.this, ListarMotoActivity.class);
+                startActivity(intent); // Esto ya inicia la nueva pantalla y se ejecuta obtenerCoches() automáticamente
+            }
+        });
 
         // Configurar redes sociales
         btnFacebook.setOnClickListener(new View.OnClickListener() {

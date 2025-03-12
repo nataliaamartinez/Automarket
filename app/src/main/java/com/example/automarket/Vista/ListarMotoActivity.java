@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -25,28 +26,29 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaFurgonetasActivity extends AppCompatActivity {
-    private static ListView listViewFurgonetas;
-    private static TextView tvNoFurgonetas;
-    private static List<String> listaFurgonetas;
-    private static ArrayAdapter<String> furgonetasAdapter;
 
-    private static final String URL_LISTAR_FURGONETAS = Utils.IP + "listar_furgoneta.php"; // Actualiza la URL para listar furgonetas
+public class ListarMotoActivity extends AppCompatActivity {
+    private static ListView listViewMotos;
+    private static TextView tvNoMotos;
+    private static List<String> listaMotos;
+    private static ArrayAdapter<String> motosAdapter;
+
+    private static final String URL_LISTAR_MOTOS = Utils.IP + "listar_motos.php"; // Actualiza la URL para listar furgonetas
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_furgonetas); // Asegúrate de tener un layout adecuado
+        setContentView(R.layout.activity_listar_motos); // Asegúrate de tener un layout adecuado
 
-        listViewFurgonetas = findViewById(R.id.listViewFurgonetas);
-        tvNoFurgonetas = findViewById(R.id.tvNoFurgonetas);
+        listViewMotos = findViewById(R.id.listViewMotos);
+        tvNoMotos = findViewById(R.id.tvNoMotos);
 
-        listaFurgonetas = new ArrayList<>();
-        furgonetasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaFurgonetas);
-        listViewFurgonetas.setAdapter(furgonetasAdapter);
+        listaMotos = new ArrayList<>();
+        motosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaMotos);
+        listViewMotos.setAdapter(motosAdapter);
 
-        listViewFurgonetas.setVisibility(View.GONE);
-        tvNoFurgonetas.setVisibility(View.VISIBLE);
+        listViewMotos.setVisibility(View.GONE);
+        tvNoMotos.setVisibility(View.VISIBLE);
 
         obtenerFurgonetas();
     }
@@ -56,15 +58,15 @@ public class ListaFurgonetasActivity extends AppCompatActivity {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                URL_LISTAR_FURGONETAS, // URL para listar furgonetas
+                URL_LISTAR_MOTOS, // URL para listar motos
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("ListaFurgonetas", "Respuesta del servidor: " + response.toString());
+                        Log.d("ListaMotos", "Respuesta del servidor: " + response.toString());
 
                         try {
-                            listaFurgonetas.clear();
+                            listaMotos.clear();
 
                             if (response.length() > 0) {
                                 for (int i = 0; i < response.length(); i++) {
@@ -78,26 +80,26 @@ public class ListaFurgonetasActivity extends AppCompatActivity {
                                             "Modelo: " + modelo + "\n" +
                                             "Precio: " + precio + "€";
 
-                                    listaFurgonetas.add(furgonetaTexto);
+                                    listaMotos.add(furgonetaTexto);
                                 }
 
-                                furgonetasAdapter.notifyDataSetChanged();
-                                listViewFurgonetas.setVisibility(View.VISIBLE);
-                                tvNoFurgonetas.setVisibility(View.GONE);
+                                motosAdapter.notifyDataSetChanged();
+                                listViewMotos.setVisibility(View.VISIBLE);
+                                tvNoMotos.setVisibility(View.GONE);
                             } else {
-                                tvNoFurgonetas.setVisibility(View.VISIBLE);
-                                listViewFurgonetas.setVisibility(View.GONE);
+                                tvNoMotos.setVisibility(View.VISIBLE);
+                                listViewMotos.setVisibility(View.GONE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(ListaFurgonetasActivity.this, "Error al procesar los datos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ListarMotoActivity.this, "Error al procesar los datos", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 error -> {
-                    Log.e("ListaFurgonetas", "Error al conectar con el servidor: " + error.getMessage());
+                    Log.e("ListaMotos", "Error al conectar con el servidor: " + error.getMessage());
                     error.printStackTrace();
-                    Toast.makeText(ListaFurgonetasActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListarMotoActivity.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
                 });
 
         requestQueue.add(jsonArrayRequest);

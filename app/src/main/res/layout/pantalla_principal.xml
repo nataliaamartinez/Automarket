@@ -9,8 +9,9 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/footer">
+        android:layout_height="574dp"
+        android:layout_above="@id/footer"
+        android:layout_marginBottom="-65dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +72,66 @@
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 
+            <!-- Barra superior con logotipo del usuario y opciones -->
+
             <!-- Área de búsqueda -->
+            <LinearLayout
+                android:id="@+id/barra2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FF0000"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                tools:ignore="ExtraText">
+
+                <!-- Logotipo del usuario -->
+                <!-- Este es el logo del usuario -->
+
+                <!-- Aquí iría el nombre del usuario -->
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/tvUsuarioNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Nombre Usuario" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <!-- Botón para modificar credenciales -->
+
+                <!-- Botón para cerrar sesión -->
+
+                <Button
+                    android:id="@+id/btnModificarCredenciales"
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="Modificar Credenciales"
+                    android:padding="8dp"
+                    android:text="Modificar Credenciales"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btnCerrarSesion"
+                    android:layout_width="98dp"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="Cerrar Sesión"
+                    android:padding="8dp"
+                    android:text="Cerrar Sesión"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tvQueBuscar"
                 android:layout_width="wrap_content"
@@ -178,11 +238,10 @@
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="191dp"
         android:layout_alignParentBottom="true"
         android:background="#FF0000"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <!-- Contenedor para Aviso Legal y Contáctanos -->
         <LinearLayout

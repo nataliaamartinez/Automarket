@@ -83,6 +83,9 @@
         <activity
             android:name=".Vista.ListarMotoActivity"
             android:exported="false" />
+        <activity
+            android:name=".Vista.ModificarCredencialesActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

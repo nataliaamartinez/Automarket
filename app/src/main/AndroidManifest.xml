@@ -71,6 +71,15 @@
         <activity
             android:name=".Vista.Publicar_Furgoneta"
             android:exported="false" />
+        <activity
+            android:name=".Vista.ListaCochesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.Anuncios"
+            android:exported="false" />
+        <activity
+            android:name=".Vista.ListaFurgonetasActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

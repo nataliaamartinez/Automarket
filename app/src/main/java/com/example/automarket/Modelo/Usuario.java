@@ -4,17 +4,17 @@ public class Usuario {
     private int id;
     private String nombre;
     private String email;
-    private String telefono;
+    private String contranenia;
 
     
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String email, String telefono) {
+    public Usuario(int id, String nombre, String email, String contranenia) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.telefono = telefono;
+        this.contranenia = contranenia;
     }
 
     public int getId() {
@@ -35,16 +35,16 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getTelefono() {
-        return telefono;
+    public String getcontranenia() {
+        return contranenia;
     }
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setcontranenia(String contranenia) {
+        this.contranenia = contranenia;
     }
 
     @Override
     public String toString() {
-        return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + ", telefono=" + telefono + "]";
+        return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + ", telefono=" + contranenia + "]";
     }   
     
 } 

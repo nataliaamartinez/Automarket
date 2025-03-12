@@ -20,18 +20,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Campo ID -->
-        <EditText
-            android:id="@+id/et_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@android:drawable/edit_text"
-            android:hint="ID"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888" />
-
         <!-- Campo Marca -->
         <EditText
             android:id="@+id/et_marca"
@@ -95,17 +83,31 @@
             android:textColor="#000000"
             android:textColorHint="#888888" />
 
-        <!-- Campo Carrocería -->
+        <!-- Campo Capacidad de Carga -->
         <EditText
             android:id="@+id/et_capacidad_de_carga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:background="@android:drawable/edit_text"
-            android:hint="Capacida de Carga"
+            android:hint="Capacidad de Carga"
             android:padding="12dp"
             android:textColor="#000000"
             android:textColorHint="#888888" />
+
+        <!-- Campo Descripción -->
+        <EditText
+            android:id="@+id/et_descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Descripción"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textColorHint="#888888"
+            android:inputType="textMultiLine"
+            android:lines="3" />
 
         <!-- Botón Publicar -->
         <Button

@@ -2,53 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <!-- Barra superior -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FF0000"
-        android:padding="16dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/ivLogoFavoritos"
-            android:layout_width="110dp"
-            android:layout_height="112dp"
-            android:contentDescription="Logo AutoMarket"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="112dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Mis Favoritos"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <!-- Lista de favoritos -->
-
-    <!-- Mensaje cuando no hay favoritos -->
     <ListView
         android:id="@+id/listViewFavoritos"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="#CCCCCC"
-        android:dividerHeight="1dp"
-        android:padding="16dp" />
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:visibility="gone" />
 
+    <!-- Mensaje cuando no hay favoritos -->
     <TextView
         android:id="@+id/tvNoFavoritos"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No tienes favoritos guardados"
-        android:gravity="center"
-        android:padding="16dp"
-        android:visibility="gone"/>
+        android:text="No tienes favoritos aún."
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:layout_gravity="center" />
 </LinearLayout>

@@ -51,7 +51,7 @@ public class Inicio_Sesion extends AppCompatActivity {
                 if (usuario.isEmpty() || contrasena.isEmpty()) {
                     Toast.makeText(Inicio_Sesion.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    new login().execute("Juan Pérez","1234");
+                    new login().execute(usuario,contrasena);
                     //verificarCredenciales(usuario, contrasena);
                 }
             }

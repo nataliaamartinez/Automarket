@@ -1,106 +1,97 @@
 package com.example.automarket.Vista;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.automarket.R;
+import com.example.automarket.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Publicar_Coche extends AppCompatActivity {
+    private EditText etMarca, etModelo, etAnio, etPrecio, etKilometraje, etCarroceria, etDescripcion;
+    private static final String URL_PUBLICAR = Utils.IP + "publicar_coche.php"; // Cambia la URL por la correcta
+    private String vendedorId = "1"; // TODO: Reemplaza con el ID del usuario autenticado
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.publicar_coche); // Inflar el XML directamente
 
-        // Crear ScrollView para manejar el contenido desplazable
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        ));
+        // Obtener las vistas por ID
+        etMarca = findViewById(R.id.et_marca);
+        etModelo = findViewById(R.id.et_modelo);
+        etAnio = findViewById(R.id.et_anio);
+        etKilometraje = findViewById(R.id.et_kilometraje);
+        etCarroceria = findViewById(R.id.et_carroceria);
+        etPrecio = findViewById(R.id.et_precio);
+        etDescripcion = findViewById(R.id.et_descripcion);
 
-        // Crear un LinearLayout principal para los elementos
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        layout.setPadding(32, 32, 32, 32);
+        // Botón Publicar
+        Button btnPublicar = findViewById(R.id.btn_publicar);
+        btnPublicar.setOnClickListener(v -> publicarCoche());
 
-        // Crear Título
-        TextView title = new TextView(this);
-        title.setText("Publicar Coche");
-        title.setTextSize(24);
-        title.setTextColor(Color.BLACK);
-        title.setPadding(0, 0, 0, 24);
-        layout.addView(title);
-
-        // Crear campos de entrada
-        EditText etId = createEditText("ID", layout);
-        EditText etMarca = createEditText("Marca", layout);
-        EditText etModelo = createEditText("Modelo", layout);
-        EditText etAnio = createEditText("Año", layout);
-        EditText etPrecio = createEditText("Precio", layout);
-        EditText etKilometraje = createEditText("Kilometraje", layout);
-        EditText etCarroceria = createEditText("Carrocería", layout);
-
-        // Crear botones Publicar y Cancelar
-        Button btnPublicar = new Button(this);
-        btnPublicar.setText("Publicar");
-        btnPublicar.setBackgroundColor(Color.RED);
-        btnPublicar.setTextColor(Color.WHITE);
-        btnPublicar.setPadding(16, 16, 16, 16);
-        btnPublicar.setOnClickListener(v -> {
-            // Acciones al publicar (ejemplo: mostrar un mensaje)
-            String datos = "Publicando:\n" +
-                    "ID: " + etId.getText().toString() + "\n" +
-                    "Marca: " + etMarca.getText().toString() + "\n" +
-                    "Modelo: " + etModelo.getText().toString() + "\n" +
-                    "Año: " + etAnio.getText().toString() + "\n" +
-                    "Precio: " + etPrecio.getText().toString() + "\n" +
-                    "Kilometraje: " + etKilometraje.getText().toString() + "\n" +
-                    "Carrocería: " + etCarroceria.getText().toString();
-            Toast.makeText(this, datos, Toast.LENGTH_LONG).show();
-        });
-        layout.addView(btnPublicar);
-
-        Button btnCancelar = new Button(this);
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBackgroundColor(Color.GRAY);
-        btnCancelar.setTextColor(Color.WHITE);
-        btnCancelar.setPadding(16, 16, 16, 16);
-        btnCancelar.setOnClickListener(v -> {
-            // Finalizar la actividad
-            finish();
-        });
-        layout.addView(btnCancelar);
-
-        // Agregar el layout principal al ScrollView
-        scrollView.addView(layout);
-
-        // Establecer el ScrollView como contenido de la actividad
-        setContentView(scrollView);
+        // Botón Cancelar
+        Button btnCancelar = findViewById(R.id.btn_cancelar);
+        btnCancelar.setOnClickListener(v -> finish());
     }
 
-    // Método auxiliar para crear campos de entrada
-    private EditText createEditText(String hint, LinearLayout layout) {
-        EditText editText = new EditText(this);
-        editText.setHint(hint);
-        editText.setHintTextColor(Color.GRAY);
-        editText.setTextColor(Color.BLACK);
-        editText.setPadding(16, 16, 16, 16);
-        editText.setBackgroundResource(android.R.drawable.edit_text);
-        editText.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        layout.addView(editText);
-        return editText;
+    private void publicarCoche() {
+        String marca = etMarca.getText().toString().trim();
+        String modelo = etModelo.getText().toString().trim();
+        String anio = etAnio.getText().toString().trim();
+        String kilometraje = etKilometraje.getText().toString().trim();
+        String carroceria = etCarroceria.getText().toString().trim();
+        String precio = etPrecio.getText().toString().trim();
+        String descripcion = etDescripcion.getText().toString().trim();
+
+        // Verificar que todos los campos estén completos
+        if (marca.isEmpty() || modelo.isEmpty() || anio.isEmpty() || kilometraje.isEmpty() || carroceria.isEmpty() || precio.isEmpty() || descripcion.isEmpty()) {
+            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Imprimir en log los valores que se van a enviar
+        Log.d("PublicarCoche", "Marca: " + marca + ", Modelo: " + modelo + ", Kilometraje: " + kilometraje + ", Descripcion: " + descripcion + ", Vendedor ID: " + vendedorId);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_PUBLICAR,
+                response -> {
+                    Toast.makeText(Publicar_Coche.this, response, Toast.LENGTH_SHORT).show();
+                    if (response.trim().equalsIgnoreCase("success")) {
+                        Toast.makeText(Publicar_Coche.this, "Coche publicado con éxito", Toast.LENGTH_SHORT).show();
+                        finish(); // Cierra la actividad después de publicar
+                    } else {
+                        Toast.makeText(Publicar_Coche.this, "Error al publicar: " + response, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(Publicar_Coche.this, "Error de conexión: " + error.toString(), Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("marca", marca);
+                params.put("modelo", modelo);
+                params.put("anio", anio);
+                params.put("kilometraje", kilometraje);
+                params.put("carroceria", carroceria);
+                params.put("precio", precio);
+                params.put("descripcion", descripcion);
+                params.put("vendedor_id", vendedorId);
+                return params;
+            }
+        };
+
+        queue.add(stringRequest);
     }
 }
-

@@ -1,5 +1,6 @@
 package com.example.automarket.Vista;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class Favoritos extends AppCompatActivity {
     private static final String URL_LISTAR_FAV = Utils.IP + "listar_fav.php";
     private static final String URL_BORRAR_FAV = Utils.IP + "borrar_fav.php"; // Asegúrate de que esta URL sea correcta
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

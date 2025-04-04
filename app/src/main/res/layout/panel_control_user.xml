@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -9,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF0000"
+        android:background="#009688"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
@@ -27,9 +28,11 @@
             android:id="@+id/btnAnadir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"
+            android:background="#FFFFFF"
+            android:backgroundTint="#000000"
             android:text="Añadir +"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            tools:ignore="TextContrastCheck" />
     </LinearLayout>
 
     <!-- Sección de anuncios -->
@@ -76,6 +79,7 @@
                         android:id="@+id/btnBorrarAnuncio1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#000000"
                         android:text="Borrar" />
 
                     <Button
@@ -83,6 +87,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:backgroundTint="#000000"
                         android:text="Modificar" />
 
                 </LinearLayout>
@@ -96,7 +101,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF0000"
+        android:background="#009688"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
@@ -141,12 +146,14 @@
 
             <TextView
                 android:id="@+id/tvMapa"
-                android:layout_width="wrap_content"
+                android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="8dp"
                 android:text="Mapa"
-                android:textColor="#DD2C00" />
+                android:textAlignment="center"
+                android:textColor="#000000" />
+
         </LinearLayout>
 
         <TextView

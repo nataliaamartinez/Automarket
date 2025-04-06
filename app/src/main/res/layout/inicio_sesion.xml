@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="16dp">
 
     <!-- Título -->
     <TextView
@@ -45,34 +45,34 @@
         android:id="@+id/btnAcceder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Acceder"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"/>
+        android:backgroundTint="@color/teal_700"
+        android:text="Acceder"
+        android:textColor="@android:color/white" />
 
     <!-- Texto y botón para registro -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp">
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvNoCuenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿No tienes cuenta?"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/btnRegistrarse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registrarse"
+            android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
-            android:textColor="@color/purple_500"
             android:padding="0dp"
-            android:layout_marginStart="8dp"/>
+            android:text="Registrarse"
+            android:textColor="@color/teal_700" />
 
     </LinearLayout>
 </LinearLayout>

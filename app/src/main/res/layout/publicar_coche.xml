@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
@@ -112,12 +113,21 @@
             android:id="@+id/btn_publicar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00796B"
+            android:background="#009688"
+            android:backgroundTint="#000000"
             android:padding="16dp"
             android:text="Publicar"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            tools:ignore="TextContrastCheck" />
 
         <!-- Botón Cancelar -->
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="?android:attr/listDivider" />
+
         <Button
             android:id="@+id/btn_cancelar"
             android:layout_width="match_parent"

@@ -25,6 +25,7 @@ public class Pantalla_Principal extends AppCompatActivity {
 
     private ImageButton btnMensaje;
     private ImageButton btnFavoritos;
+    private ImageButton btnUsuario;
     private Button btnPublicar;
     private Button btnBuscar;
     private Button btnCoche;
@@ -64,6 +65,7 @@ public class Pantalla_Principal extends AppCompatActivity {
         // Inicializar vistas
         btnMensaje = findViewById(R.id.btnMensaje);
         btnFavoritos = findViewById(R.id.btnFavoritos);
+        btnUsuario = findViewById(R.id.btnUsuario);
         btnPublicar = findViewById(R.id.btnPublicar);
         btnBuscar = findViewById(R.id.btnBuscar);
         btnCoche = findViewById(R.id.btnCoche);
@@ -269,6 +271,21 @@ public class Pantalla_Principal extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(Pantalla_Principal.this,
                             "No se pudo abrir el mapa",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        btnUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent(Pantalla_Principal.this, Panel_Control_User.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(Pantalla_Principal.this,
+                            "Error al abrir el panel de control",
                             Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }

@@ -85,9 +85,7 @@
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 
-            <!-- Barra superior con logotipo del usuario y opciones -->
-
-            <!-- Área de búsqueda -->
+            <!-- Barra superior - Modificar Credenciales y Cerrar sesión -->
             <LinearLayout
                 android:id="@+id/barra2"
                 android:layout_width="match_parent"
@@ -98,67 +96,40 @@
                 android:padding="8dp"
                 tools:ignore="ExtraText">
 
-                <!-- Logotipo del usuario -->
-                <!-- Este es el logo del usuario -->
-
-                <!-- Aquí iría el nombre del usuario -->
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:gravity="center_vertical" />
-
                 <TextView
                     android:id="@+id/tvUsuarioNombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Nombre Usuario" />
-
-                <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <!-- Botón para modificar credenciales -->
-
-                <!-- Botón para cerrar sesión -->
+                    android:layout_weight="1"
+                    android:text="Usuario"
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnModificarCredenciales"
-                    android:layout_width="148dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="Modificar Credenciales"
-                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#000000"
                     android:text="Modificar Credenciales"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp" />
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btnCerrarSesion"
-                    android:layout_width="98dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="Cerrar Sesión"
-                    android:padding="8dp"
+                    android:backgroundTint="#000000"
                     android:text="Cerrar Sesión"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp" />
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvQueBuscar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:text="¿Qué deseas buscar?"
-                android:textSize="20sp" />
-
+            <!-- Área de búsqueda -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#009688"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <EditText
                     android:id="@+id/etBuscar"
@@ -220,8 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:padding="16dp"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvAnuncio2"
@@ -229,15 +199,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:padding="16dp"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:textSize="16sp" />
 
             <!-- Nuevo ListView para los coches -->
             <ListView
                 android:id="@+id/listViewCoches"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />  <!-- Oculto inicialmente -->
+                android:layout_height="wrap_content" />
 
             <!-- Nuevo TextView para mostrar "No hay coches" -->
             <TextView
@@ -246,9 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:padding="16dp"
-                android:text="No hay coches disponibles"
-                android:visibility="gone" />  <!-- Oculto inicialmente -->
-
+                android:text="No hay coches disponibles" />
         </LinearLayout>
     </ScrollView>
 
@@ -377,7 +343,5 @@
             android:padding="8dp"
             android:text="Copyright © 2025 AutoMarket"
             android:textColor="#FFFFFF" />
-
     </LinearLayout>
-
 </RelativeLayout>

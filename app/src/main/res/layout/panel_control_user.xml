@@ -35,6 +35,41 @@
             tools:ignore="HardcodedText,TextContrastCheck" />
     </LinearLayout>
 
+    <!-- Sección de usuario -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvNombreUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Usuario"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnModificarCredenciales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="Modificar Credenciales"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="Cerrar Sesión"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
     <!-- Sección de anuncios -->
     <ScrollView
         android:layout_width="match_parent"

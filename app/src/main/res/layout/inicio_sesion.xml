@@ -3,76 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Bienvenidos a AUTOMARKET"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="48sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Iniciar Sesión"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Campo de Usuario -->
     <EditText
         android:id="@+id/etUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Usuario"
         android:inputType="text"
-        android:minHeight="48dp"
-        android:padding="10dp" />
+        android:minHeight="48dp" />
 
-    <!-- Campo de Contraseña -->
     <EditText
         android:id="@+id/etContrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
         android:hint="Contraseña"
         android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:padding="10dp" />
+        android:minHeight="48dp" />
 
-    <!-- Botón de Acceder -->
     <Button
-        android:id="@+id/btnAcceder"
+        android:id="@+id/btnIniciarSesion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/teal_700"
-        android:text="Acceder"
-        android:textColor="@android:color/white" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#009688"
+        android:text="Iniciar Sesión"
+        android:textColor="#FFFFFF" />
 
-    <!-- Texto y botón para registro -->
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnRegistrarse"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:backgroundTint="#009688"
+        android:text="Registrarse"
+        android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/tvNoCuenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¿No tienes cuenta?"
-            android:textColor="@android:color/black" />
-
-        <Button
-            android:id="@+id/btnRegistrarse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@android:color/transparent"
-            android:padding="0dp"
-            android:text="Registrarse"
-            android:textColor="@color/teal_700" />
-
-    </LinearLayout>
 </LinearLayout>

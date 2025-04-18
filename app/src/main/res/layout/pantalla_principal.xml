@@ -89,44 +89,18 @@
             <LinearLayout
                 android:id="@+id/barra2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#009688"
+                android:layout_height="69dp"
+                android:background="#FFFFFF"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="8dp"
-                tools:ignore="ExtraText">
-
-                <TextView
-                    android:id="@+id/tvUsuarioNombre"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Usuario"
-                    android:textColor="#FFFFFF" />
-
-                <Button
-                    android:id="@+id/btnModificarCredenciales"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:backgroundTint="#000000"
-                    android:text="Modificar Credenciales"
-                    android:textColor="#FFFFFF" />
-
-                <Button
-                    android:id="@+id/btnCerrarSesion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#000000"
-                    android:text="Cerrar Sesión"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
+                tools:ignore="ExtraText" />
 
             <!-- Área de búsqueda -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#009688"
+                android:background="#FFFFFF"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="8dp">

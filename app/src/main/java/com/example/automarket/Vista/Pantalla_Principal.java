@@ -72,9 +72,7 @@ public class Pantalla_Principal extends AppCompatActivity {
 
         // Barra superior - Modificar Credenciales y Cerrar sesión
         barraSuperior = findViewById(R.id.barra2);
-        tvNombreUsuario = findViewById(R.id.tvUsuarioNombre);
-        btnModificarCredenciales = findViewById(R.id.btnModificarCredenciales);
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+
 
         // Inicializar lista de vehículos
         listaVehiculos = new ArrayList<>();
@@ -99,9 +97,9 @@ public class Pantalla_Principal extends AppCompatActivity {
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this, 
-                    "Sesión cerrada", 
-                    Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Pantalla_Principal.this, Inicio_Sesion.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             }
         });

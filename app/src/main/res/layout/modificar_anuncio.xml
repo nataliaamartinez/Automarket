@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Campo para el anuncio -->
+    <EditText
+        android:id="@+id/etAnuncio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el anuncio"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textSize="16sp" />
+
+    <!-- Botón para guardar el anuncio -->
+    <Button
+        android:id="@+id/btnGuardarAnuncio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Anuncio"
+        android:backgroundTint="#009688"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

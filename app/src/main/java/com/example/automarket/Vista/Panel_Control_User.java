@@ -1,174 +1,124 @@
 package com.example.automarket.Vista;
 
-import android.graphics.Color;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
+
+import com.example.automarket.R;
+
 
 public class Panel_Control_User extends AppCompatActivity {
+    // Elementos de la barra superior
+    private TextView tvUsuario;
+    private Button btnAnadir;
+
+    // Elementos de los anuncios
+    private Button btnBorrarAnuncio1, btnModificarAnuncio1;
+    private ImageView imageAnuncio1;
+    private TextView tvAnuncio1;
+
+    // Elementos del footer
+    private TextView tvAvisoLegal, tvContactanos, tvMapa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.panel_control_user);
 
-        // Crear el ConstraintLayout principal
-        ConstraintLayout mainLayout = new ConstraintLayout(this);
-        mainLayout.setLayoutParams(new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.MATCH_PARENT
-        ));
-        mainLayout.setBackgroundColor(Color.WHITE);
+        // Inicializar vistas de la barra superior
+        tvUsuario = findViewById(R.id.tvUsuario);
+        btnAnadir = findViewById(R.id.btnAnadir);
 
-        // Barra superior
-        LinearLayout topBar = new LinearLayout(this);
-        topBar.setOrientation(LinearLayout.HORIZONTAL);
-        topBar.setBackgroundColor(Color.RED);
-        topBar.setPadding(16, 16, 16, 16);
-        topBar.setId(View.generateViewId());
+        // Inicializar vistas de los anuncios
+        imageAnuncio1 = findViewById(R.id.imageAnuncio1);
+        tvAnuncio1 = findViewById(R.id.tvAnuncio1);
+        btnBorrarAnuncio1 = findViewById(R.id.btnBorrarAnuncio1);
+        btnModificarAnuncio1 = findViewById(R.id.btnModificarAnuncio1);
 
-        TextView userText = new TextView(this);
-        userText.setText("Usuario");
-        userText.setTextColor(Color.WHITE);
-        userText.setTextSize(18);
-        LinearLayout.LayoutParams userTextParams = new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1
-        );
-        userText.setLayoutParams(userTextParams);
+        // Inicializar vistas del footer
+        tvAvisoLegal = findViewById(R.id.tvAvisoLegal);
+        tvContactanos = findViewById(R.id.tvContactanos);
+        tvMapa = findViewById(R.id.tvMapa);
 
-        Button addButton = new Button(this);
-        addButton.setText("Añadir +");
-        addButton.setBackgroundColor(Color.WHITE);
-        addButton.setTextColor(Color.BLACK);
+        // Configurar el botón de "Añadir +"
+        btnAnadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Aquí puedes poner la acción que deseas cuando se haga clic en "Añadir +"
+                Intent intent = new Intent(Panel_Control_User.this, Categorias.class);  // Suponiendo que tienes una actividad llamada AnadirAnuncioActivity
+                startActivity(intent);
+            }
+        });
 
-        topBar.addView(userText);
-        topBar.addView(addButton);
+        // Configurar el botón de "Borrar" en el Anuncio 1
+        btnBorrarAnuncio1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acción para borrar el anuncio 1
+                Toast.makeText(Panel_Control_User.this, "Anuncio 1 borrado", Toast.LENGTH_SHORT).show();
+                // Aquí deberías borrar el anuncio en tu base de datos o lista
+            }
+        });
 
-        // Agregar la barra superior al layout principal
-        mainLayout.addView(topBar);
+        // Configurar el botón de "Modificar" en el Anuncio 1
+        btnModificarAnuncio1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acción para modificar el anuncio 1
+                Intent intent = new Intent(Panel_Control_User.this, ModificarAnuncioActivity.class);  // Suponiendo que tienes una actividad llamada ModificarAnuncioActivity
+                startActivity(intent);
+            }
+        });
 
-        // Lista de anuncios
-        LinearLayout adList = new LinearLayout(this);
-        adList.setOrientation(LinearLayout.VERTICAL);
-        adList.setId(View.generateViewId());
-        adList.setPadding(16, 16, 16, 16);
+        // Configurar el clic en "Aviso Legal"
+        tvAvisoLegal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acción para abrir el Aviso Legal
+                Intent intent = new Intent(Panel_Control_User.this, Aviso_Legal.class);  // Suponiendo que tienes una actividad llamada AvisoLegalActivity
+                startActivity(intent);
+            }
+        });
 
-        for (int i = 1; i <= 3; i++) {
-            // Crear contenedor horizontal para cada anuncio
-            LinearLayout adRow = new LinearLayout(this);
-            adRow.setOrientation(LinearLayout.HORIZONTAL);
-            adRow.setPadding(8, 8, 8, 8);
-            adRow.setGravity(Gravity.CENTER_VERTICAL);
+        // Configurar el clic en "Contáctanos"
+        tvContactanos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acción para abrir la aplicación de llamadas con un número
+                String phoneNumber = "tel:+34666777888";  // Número de ejemplo
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(phoneNumber));
+                startActivity(intent);
+            }
+        });
 
-            // Imagen del anuncio
-            ImageView adImage = new ImageView(this);
-            adImage.setBackgroundColor(Color.LTGRAY);
-            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(100, 100);
-            adImage.setLayoutParams(imageParams);
+        // Configurar el clic en "Mapa"
+        tvMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acción para abrir el mapa con una ubicación
+                String direccion = "Calle de Embajadores, 181, 28045 Madrid";  // Dirección de ejemplo
+                String uri = "geo:0,0?q=" + Uri.encode(direccion);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
 
-            // Texto del anuncio
-            TextView adText = new TextView(this);
-            adText.setText("Anuncio " + i);
-            adText.setPadding(16, 0, 0, 0);
-            adText.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-
-            // Botones Borrar y Modificar
-            Button deleteButton = new Button(this);
-            deleteButton.setText("Borrar");
-            Button modifyButton = new Button(this);
-            modifyButton.setText("Modificar");
-
-            // Agregar elementos al contenedor del anuncio
-            adRow.addView(adImage);
-            adRow.addView(adText);
-            adRow.addView(deleteButton);
-            adRow.addView(modifyButton);
-
-            // Agregar anuncio a la lista
-            adList.addView(adRow);
-        }
-
-        // Agregar la lista de anuncios al layout principal
-        mainLayout.addView(adList);
-
-        // Barra inferior
-        LinearLayout bottomBar = new LinearLayout(this);
-        bottomBar.setOrientation(LinearLayout.HORIZONTAL);
-        bottomBar.setBackgroundColor(Color.RED);
-        bottomBar.setPadding(16, 16, 16, 16);
-        bottomBar.setId(View.generateViewId());
-
-        // Sección izquierda (Aviso Legal, Redes Sociales, CopyRight)
-        LinearLayout leftSection = new LinearLayout(this);
-        leftSection.setOrientation(LinearLayout.VERTICAL);
-        leftSection.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-
-        TextView legalText = new TextView(this);
-        legalText.setText("Aviso Legal");
-        legalText.setTextColor(Color.WHITE);
-
-        TextView socialText = new TextView(this);
-        socialText.setText("Redes sociales");
-        socialText.setTextColor(Color.WHITE);
-
-        TextView copyrightText = new TextView(this);
-        copyrightText.setText("CopyRight");
-        copyrightText.setTextColor(Color.WHITE);
-
-        leftSection.addView(legalText);
-        leftSection.addView(socialText);
-        leftSection.addView(copyrightText);
-
-        // Sección derecha (Contáctanos y Mapa)
-        LinearLayout rightSection = new LinearLayout(this);
-        rightSection.setOrientation(LinearLayout.VERTICAL);
-        rightSection.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        rightSection.setGravity(Gravity.CENTER);
-
-        TextView contactText = new TextView(this);
-        contactText.setText("Contáctanos");
-        contactText.setTextColor(Color.WHITE);
-
-        View mapView = new View(this);
-        mapView.setBackgroundColor(Color.WHITE);
-        LinearLayout.LayoutParams mapParams = new LinearLayout.LayoutParams(200, 200);
-        mapView.setLayoutParams(mapParams);
-
-        rightSection.addView(contactText);
-        rightSection.addView(mapView);
-
-        bottomBar.addView(leftSection);
-        bottomBar.addView(rightSection);
-
-        // Agregar la barra inferior al layout principal
-        mainLayout.addView(bottomBar);
-
-        // Configuración de ConstraintLayout
-        ConstraintSet set = new ConstraintSet();
-        set.clone(mainLayout);
-
-        set.connect(topBar.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-        set.connect(topBar.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-        set.connect(topBar.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-
-        set.connect(adList.getId(), ConstraintSet.TOP, topBar.getId(), ConstraintSet.BOTTOM);
-        set.connect(adList.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-        set.connect(adList.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-        set.connect(adList.getId(), ConstraintSet.BOTTOM, bottomBar.getId(), ConstraintSet.TOP);
-
-        set.connect(bottomBar.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
-        set.connect(bottomBar.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-        set.connect(bottomBar.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-
-        set.applyTo(mainLayout);
-
-        // Establecer el layout principal como contenido
-        setContentView(mainLayout);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    // Si Google Maps no está instalado, abrir en el navegador
+                    String mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + Uri.encode(direccion);
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mapsUrl));
+                    startActivity(browserIntent);
+                }
+            }
+        });
     }
 }
+

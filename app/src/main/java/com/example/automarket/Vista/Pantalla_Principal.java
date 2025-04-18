@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class Pantalla_Principal extends AppCompatActivity {
 
+    private ImageButton btnUsuario;
     private ImageButton btnMensaje;
     private ImageButton btnFavoritos;
     private Button btnPublicar;
@@ -62,6 +63,7 @@ public class Pantalla_Principal extends AppCompatActivity {
         setContentView(R.layout.pantalla_principal);
 
         // Inicializar vistas
+        btnUsuario=findViewById(R.id.btnUsuario);
         btnMensaje = findViewById(R.id.btnMensaje);
         btnFavoritos = findViewById(R.id.btnFavoritos);
         btnPublicar = findViewById(R.id.btnPublicar);
@@ -108,7 +110,16 @@ public class Pantalla_Principal extends AppCompatActivity {
                 // Aquí se debería cerrar la sesión
                 Intent intent = new Intent(Pantalla_Principal.this, Inicio_Sesion.class);
                 startActivity(intent);
-                finish();  // Finaliza la actividad actual (pantalla principal)
+                //finish();  // Finaliza la actividad actual (pantalla principal)
+            }
+        });
+
+        btnUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Pantalla_Principal.this, Panel_Control_User.class);
+                startActivity(intent);
+
             }
         });
 

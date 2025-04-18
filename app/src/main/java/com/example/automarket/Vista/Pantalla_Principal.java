@@ -1,5 +1,6 @@
 package com.example.automarket.Vista;
 
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.automarket.R;
+import com.example.automarket.Utils;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,6 @@ public class Pantalla_Principal extends AppCompatActivity {
 
     private ImageButton btnMensaje;
     private ImageButton btnFavoritos;
-    private ImageButton btnUsuario;
     private Button btnPublicar;
     private Button btnBuscar;
     private Button btnCoche;
@@ -45,9 +46,15 @@ public class Pantalla_Principal extends AppCompatActivity {
     private Button btnModificarCredenciales;
     private Button btnCerrarSesion;
 
+    // URL para listar los coches y furgonetas
+    private static final String URL_LISTAR_COCHES = Utils.IP + "listar_coches.php";
+    private static final String URL_LISTAR_FURGONETAS = Utils.IP + "listar_furgonetas.php";
+    private static final String URL_PUBLICAR = Utils.IP + "publicar_coche.php";
+
     // Variables de la lista de coches y furgonetas
     private ArrayList<String> listaVehiculos;
     private ArrayAdapter<String> vehiculosAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,6 @@ public class Pantalla_Principal extends AppCompatActivity {
         // Inicializar vistas
         btnMensaje = findViewById(R.id.btnMensaje);
         btnFavoritos = findViewById(R.id.btnFavoritos);
-        btnUsuario = findViewById(R.id.btnUsuario);
         btnPublicar = findViewById(R.id.btnPublicar);
         btnBuscar = findViewById(R.id.btnBuscar);
         btnCoche = findViewById(R.id.btnCoche);
@@ -72,9 +78,11 @@ public class Pantalla_Principal extends AppCompatActivity {
 
         // Barra superior - Modificar Credenciales y Cerrar sesión
         barraSuperior = findViewById(R.id.barra2);
+        tvNombreUsuario = findViewById(R.id.tvUsuarioNombre);
+        btnModificarCredenciales = findViewById(R.id.btnModificarCredenciales);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
-
-        // Inicializar lista de vehículos
+        // Inicializar lista de vehículos (coches y furgonetas)
         listaVehiculos = new ArrayList<>();
         vehiculosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaVehiculos);
         listViewCoches.setAdapter(vehiculosAdapter);
@@ -88,23 +96,24 @@ public class Pantalla_Principal extends AppCompatActivity {
         btnModificarCredenciales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this, 
-                    "Funcionalidad de modificar credenciales en desarrollo", 
-                    Toast.LENGTH_SHORT).show();
+                // Aquí se debería abrir una nueva actividad para modificar las credenciales
+                Intent intent = new Intent(Pantalla_Principal.this, ModificarCredencialesActivity.class);
+                startActivity(intent);
             }
         });
 
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Aquí se debería cerrar la sesión
                 Intent intent = new Intent(Pantalla_Principal.this, Inicio_Sesion.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
+                finish();  // Finaliza la actividad actual (pantalla principal)
             }
         });
 
-        // Configurar listeners para los botones principales
+        // Resto de los listeners ya existentes para otros botones
+
         btnMensaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +125,7 @@ public class Pantalla_Principal extends AppCompatActivity {
                     Toast.makeText(Pantalla_Principal.this,
                             "No se encontró una aplicación de mensajes",
                             Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
         });
@@ -123,18 +133,30 @@ public class Pantalla_Principal extends AppCompatActivity {
         btnFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Funcionalidad de favoritos en desarrollo",
-                        Toast.LENGTH_SHORT).show();
+                try {
+                    Intent intent = new Intent(Pantalla_Principal.this, Favoritos.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(Pantalla_Principal.this,
+                            "Error al abrir favoritos",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
 
         btnPublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Funcionalidad de publicación en desarrollo",
-                        Toast.LENGTH_SHORT).show();
+                try {
+                    Intent intent = new Intent(Pantalla_Principal.this, Categorias.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(Pantalla_Principal.this,
+                            "Error al abrir pantalla de publicación",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -142,36 +164,31 @@ public class Pantalla_Principal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String busqueda = etBuscar.getText().toString();
-                Toast.makeText(Pantalla_Principal.this, 
-                    "Buscando: " + busqueda, 
-                    Toast.LENGTH_SHORT).show();
+                Toast.makeText(Pantalla_Principal.this, "Buscando: " + busqueda, Toast.LENGTH_SHORT).show();
             }
         });
 
         btnCoche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Lista de coches en desarrollo",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Pantalla_Principal.this, ListaCochesActivity.class);
+                startActivity(intent);
             }
+
         });
 
         btnFurgoneta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Lista de furgonetas en desarrollo",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Pantalla_Principal.this, ListaFurgonetasActivity.class);
+                startActivity(intent);
             }
         });
-
         btnMoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Lista de motos en desarrollo",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Pantalla_Principal.this, ListarMotoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -196,14 +213,19 @@ public class Pantalla_Principal extends AppCompatActivity {
                 abrirRedSocial("https://www.twitter.com/automarket");
             }
         });
-
         // Configurar el click listener para Aviso Legal
         tvAvisoLegal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Aviso legal en desarrollo",
-                        Toast.LENGTH_SHORT).show();
+                try {
+                    Intent intent = new Intent(Pantalla_Principal.this, Aviso_Legal.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(Pantalla_Principal.this,
+                            "Error al abrir el aviso legal",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -212,7 +234,7 @@ public class Pantalla_Principal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String phoneNumber = "tel:+34666777888";
+                    String phoneNumber = "tel:+34666777888"; // Número de ejemplo
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse(phoneNumber));
                     startActivity(intent);
@@ -220,15 +242,16 @@ public class Pantalla_Principal extends AppCompatActivity {
                     Toast.makeText(Pantalla_Principal.this,
                             "No se pudo abrir la aplicación de llamadas",
                             Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
         });
-
         // Configurar el click listener para Mapa
         tvMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+                    // Dirección de ejemplo: IES Juan de la Cierva
                     String direccion = "Calle de Embajadores, 181, 28045 Madrid";
                     String uri = "geo:0,0?q=" + Uri.encode(direccion);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -237,6 +260,7 @@ public class Pantalla_Principal extends AppCompatActivity {
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     } else {
+                        // Si Google Maps no está instalado, abrir en el navegador
                         String mapsUrl = "https://www.google.com/maps/search/?api=1&query="
                                 + Uri.encode(direccion);
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mapsUrl));
@@ -246,23 +270,15 @@ public class Pantalla_Principal extends AppCompatActivity {
                     Toast.makeText(Pantalla_Principal.this,
                             "No se pudo abrir el mapa",
                             Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
-            }
-        });
-
-        btnUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Pantalla_Principal.this,
-                        "Panel de control de usuario en desarrollo",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
         // Recibir el usuario si fue pasado
         String usuario = getIntent().getStringExtra("usuario");
         if (usuario != null && !usuario.isEmpty()) {
-            tvNombreUsuario.setText(usuario);
+            tvNombreUsuario.setText(usuario);  // Mostrar nombre de usuario en la barra superior
             Toast.makeText(this, "Bienvenido " + usuario, Toast.LENGTH_SHORT).show();
         }
     }
@@ -276,6 +292,7 @@ public class Pantalla_Principal extends AppCompatActivity {
             Toast.makeText(this,
                     "No se pudo abrir la red social",
                     Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 }

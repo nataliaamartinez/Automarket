@@ -1,143 +1,174 @@
 package com.example.automarket.Vista;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.automarket.R;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 public class Panel_Control_User extends AppCompatActivity {
-    private TextView tvUsuario;
-    private TextView tvNombreUsuario;
-    private Button btnAnadir;
-    private Button btnModificarCredenciales;
-    private Button btnCerrarSesion;
-    private Button btnBorrarAnuncio1;
-    private Button btnModificarAnuncio1;
-    private TextView tvAvisoLegal;
-    private TextView tvContactanos;
-    private TextView tvRedesSociales;
-    private TextView tvMapa;
-    private TextView tvCopyright;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.panel_control_user);
 
-        // Inicializar vistas
-        tvUsuario = findViewById(R.id.tvUsuario);
-        tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
-        btnAnadir = findViewById(R.id.btnAnadir);
-        btnModificarCredenciales = findViewById(R.id.btnModificarCredenciales);
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
-        btnBorrarAnuncio1 = findViewById(R.id.btnBorrarAnuncio1);
-        btnModificarAnuncio1 = findViewById(R.id.btnModificarAnuncio1);
-        tvAvisoLegal = findViewById(R.id.tvAvisoLegal);
-        tvContactanos = findViewById(R.id.tvContactanos);
-        tvRedesSociales = findViewById(R.id.tvRedesSociales);
-        tvMapa = findViewById(R.id.tvMapa);
-        tvCopyright = findViewById(R.id.tvCopyright);
+        // Crear el ConstraintLayout principal
+        ConstraintLayout mainLayout = new ConstraintLayout(this);
+        mainLayout.setLayoutParams(new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.MATCH_PARENT
+        ));
+        mainLayout.setBackgroundColor(Color.WHITE);
 
-        // Obtener el nombre de usuario de la actividad anterior
-        String nombreUsuario = getIntent().getStringExtra("usuario");
-        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
-            tvNombreUsuario.setText(nombreUsuario);
+        // Barra superior
+        LinearLayout topBar = new LinearLayout(this);
+        topBar.setOrientation(LinearLayout.HORIZONTAL);
+        topBar.setBackgroundColor(Color.RED);
+        topBar.setPadding(16, 16, 16, 16);
+        topBar.setId(View.generateViewId());
+
+        TextView userText = new TextView(this);
+        userText.setText("Usuario");
+        userText.setTextColor(Color.WHITE);
+        userText.setTextSize(18);
+        LinearLayout.LayoutParams userTextParams = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1
+        );
+        userText.setLayoutParams(userTextParams);
+
+        Button addButton = new Button(this);
+        addButton.setText("Añadir +");
+        addButton.setBackgroundColor(Color.WHITE);
+        addButton.setTextColor(Color.BLACK);
+
+        topBar.addView(userText);
+        topBar.addView(addButton);
+
+        // Agregar la barra superior al layout principal
+        mainLayout.addView(topBar);
+
+        // Lista de anuncios
+        LinearLayout adList = new LinearLayout(this);
+        adList.setOrientation(LinearLayout.VERTICAL);
+        adList.setId(View.generateViewId());
+        adList.setPadding(16, 16, 16, 16);
+
+        for (int i = 1; i <= 3; i++) {
+            // Crear contenedor horizontal para cada anuncio
+            LinearLayout adRow = new LinearLayout(this);
+            adRow.setOrientation(LinearLayout.HORIZONTAL);
+            adRow.setPadding(8, 8, 8, 8);
+            adRow.setGravity(Gravity.CENTER_VERTICAL);
+
+            // Imagen del anuncio
+            ImageView adImage = new ImageView(this);
+            adImage.setBackgroundColor(Color.LTGRAY);
+            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(100, 100);
+            adImage.setLayoutParams(imageParams);
+
+            // Texto del anuncio
+            TextView adText = new TextView(this);
+            adText.setText("Anuncio " + i);
+            adText.setPadding(16, 0, 0, 0);
+            adText.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+
+            // Botones Borrar y Modificar
+            Button deleteButton = new Button(this);
+            deleteButton.setText("Borrar");
+            Button modifyButton = new Button(this);
+            modifyButton.setText("Modificar");
+
+            // Agregar elementos al contenedor del anuncio
+            adRow.addView(adImage);
+            adRow.addView(adText);
+            adRow.addView(deleteButton);
+            adRow.addView(modifyButton);
+
+            // Agregar anuncio a la lista
+            adList.addView(adRow);
         }
 
-        // Configurar listeners
-        btnModificarCredenciales.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Panel_Control_User.this, ModificarCredencialesActivity.class);
-                intent.putExtra("usuario", nombreUsuario);
-                startActivity(intent);
-            }
-        });
+        // Agregar la lista de anuncios al layout principal
+        mainLayout.addView(adList);
 
-        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Panel_Control_User.this, Inicio_Sesion.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        // Barra inferior
+        LinearLayout bottomBar = new LinearLayout(this);
+        bottomBar.setOrientation(LinearLayout.HORIZONTAL);
+        bottomBar.setBackgroundColor(Color.RED);
+        bottomBar.setPadding(16, 16, 16, 16);
+        bottomBar.setId(View.generateViewId());
 
-        btnAnadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Panel_Control_User.this, Categorias.class);
-                startActivity(intent);
-            }
-        });
+        // Sección izquierda (Aviso Legal, Redes Sociales, CopyRight)
+        LinearLayout leftSection = new LinearLayout(this);
+        leftSection.setOrientation(LinearLayout.VERTICAL);
+        leftSection.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
-        btnBorrarAnuncio1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Panel_Control_User.this, "Anuncio borrado", Toast.LENGTH_SHORT).show();
-            }
-        });
+        TextView legalText = new TextView(this);
+        legalText.setText("Aviso Legal");
+        legalText.setTextColor(Color.WHITE);
 
-        btnModificarAnuncio1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Panel_Control_User.this, "Modificar anuncio", Toast.LENGTH_SHORT).show();
-            }
-        });
+        TextView socialText = new TextView(this);
+        socialText.setText("Redes sociales");
+        socialText.setTextColor(Color.WHITE);
 
-        tvAvisoLegal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Panel_Control_User.this, Aviso_Legal.class);
-                startActivity(intent);
-            }
-        });
+        TextView copyrightText = new TextView(this);
+        copyrightText.setText("CopyRight");
+        copyrightText.setTextColor(Color.WHITE);
 
-        tvContactanos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String phoneNumber = "tel:+34666777888";
-                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(android.net.Uri.parse(phoneNumber));
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Toast.makeText(Panel_Control_User.this,
-                            "No se pudo abrir la aplicación de llamadas",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        leftSection.addView(legalText);
+        leftSection.addView(socialText);
+        leftSection.addView(copyrightText);
 
-        tvMapa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String direccion = "Calle de Embajadores, 181, 28045 Madrid";
-                    String uri = "geo:0,0?q=" + android.net.Uri.encode(direccion);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(uri));
-                    intent.setPackage("com.google.android.apps.maps");
+        // Sección derecha (Contáctanos y Mapa)
+        LinearLayout rightSection = new LinearLayout(this);
+        rightSection.setOrientation(LinearLayout.VERTICAL);
+        rightSection.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        rightSection.setGravity(Gravity.CENTER);
 
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    } else {
-                        String mapsUrl = "https://www.google.com/maps/search/?api=1&query="
-                                + android.net.Uri.encode(direccion);
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(mapsUrl));
-                        startActivity(browserIntent);
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(Panel_Control_User.this,
-                            "No se pudo abrir el mapa",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        TextView contactText = new TextView(this);
+        contactText.setText("Contáctanos");
+        contactText.setTextColor(Color.WHITE);
+
+        View mapView = new View(this);
+        mapView.setBackgroundColor(Color.WHITE);
+        LinearLayout.LayoutParams mapParams = new LinearLayout.LayoutParams(200, 200);
+        mapView.setLayoutParams(mapParams);
+
+        rightSection.addView(contactText);
+        rightSection.addView(mapView);
+
+        bottomBar.addView(leftSection);
+        bottomBar.addView(rightSection);
+
+        // Agregar la barra inferior al layout principal
+        mainLayout.addView(bottomBar);
+
+        // Configuración de ConstraintLayout
+        ConstraintSet set = new ConstraintSet();
+        set.clone(mainLayout);
+
+        set.connect(topBar.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
+        set.connect(topBar.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+        set.connect(topBar.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+
+        set.connect(adList.getId(), ConstraintSet.TOP, topBar.getId(), ConstraintSet.BOTTOM);
+        set.connect(adList.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+        set.connect(adList.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+        set.connect(adList.getId(), ConstraintSet.BOTTOM, bottomBar.getId(), ConstraintSet.TOP);
+
+        set.connect(bottomBar.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM);
+        set.connect(bottomBar.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+        set.connect(bottomBar.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+
+        set.applyTo(mainLayout);
+
+        // Establecer el layout principal como contenido
+        setContentView(mainLayout);
     }
 }

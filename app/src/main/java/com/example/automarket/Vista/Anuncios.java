@@ -18,7 +18,7 @@ public class Anuncios extends AppCompatActivity {
         String modelo = getIntent().getStringExtra("modelo");
         double precio = getIntent().getDoubleExtra("precio", 0.0);
         String descripcion = getIntent().getStringExtra("descripcion");
-       // int imagenId = getIntent().getIntExtra("imagen", R.drawable.default_image);  // Imagen por defecto si no se pasa
+        // int imagenId = getIntent().getIntExtra("imagen", R.drawable.default_image);  // Imagen por defecto si no se pasa
 
         // Cargar los datos en las vistas correspondientes
         TextView textViewMarca = findViewById(R.id.textViewMarca);

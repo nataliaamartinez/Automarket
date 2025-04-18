@@ -1,64 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- Imagen del vehículo -->
-    <ImageView
-        android:id="@+id/imageViewVehiculo"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/logo" />
-
-    <!-- Barra de herramientas (si deseas un toolbar) -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/teal_700"
-        android:elevation="4dp"
-        android:layout_below="@id/imageViewVehiculo" />
-
-    <!-- Detalles del vehículo -->
-    <TextView
-        android:id="@+id/textViewMarca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Marca: "
-        android:textSize="18sp"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"/>
-
-    <TextView
-        android:id="@+id/textViewModelo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modelo: "
-        android:textSize="16sp"
-        android:layout_below="@id/textViewMarca"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"/>
-
-    <TextView
-        android:id="@+id/textViewPrecio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Precio: "
-        android:textSize="16sp"
-        android:layout_below="@id/textViewModelo"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"/>
-
-    <TextView
-        android:id="@+id/textViewDescripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripción: "
-        android:textSize="14sp"
-        android:layout_below="@id/textViewPrecio"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"/>
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <!--  Imagen del vehículo  -->
+    <ImageView android:id="@+id/imageViewVehiculo" android:layout_width="match_parent" android:layout_height="250dp" android:layout_alignParentTop="true" android:src="@drawable/logo"/>
+    <!--  Barra de herramientas (si deseas un toolbar)  -->
+    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:background="?attr/colorPrimary" android:elevation="4dp" android:layout_below="@id/imageViewVehiculo"/>
+    <!--  Detalles del vehículo  -->
+    <TextView android:id="@+id/textViewMarca" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Marca: " android:textSize="18sp" android:layout_below="@id/toolbar" android:layout_marginTop="16dp" android:layout_marginLeft="16dp"/>
+    <TextView android:id="@+id/textViewModelo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Modelo: " android:textSize="16sp" android:layout_below="@id/textViewMarca" android:layout_marginTop="8dp" android:layout_marginLeft="16dp"/>
+    <TextView android:id="@+id/textViewPrecio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Precio: " android:textSize="16sp" android:layout_below="@id/textViewModelo" android:layout_marginTop="8dp" android:layout_marginLeft="16dp"/>
+    <TextView android:id="@+id/textViewDescripcion" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Descripción: " android:textSize="14sp" android:layout_below="@id/textViewPrecio" android:layout_marginTop="8dp" android:layout_marginLeft="16dp"/>
 </RelativeLayout>

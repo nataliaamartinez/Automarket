@@ -1,92 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.automarket">
-
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.example.automarket">
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AUTOMARKET"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">>
-
-        <!-- Actividad Inicio Sesion -->
-        <activity
-            android:name=".Vista.Inicio_Sesion"
-            android:exported="true">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <application android:allowBackup="true" android:dataExtractionRules="@xml/data_extraction_rules" android:fullBackupContent="@xml/backup_rules" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/Theme.AUTOMARKET" tools:targetApi="31" android:usesCleartextTraffic="true">
+        >
+        <!--  Actividad Inicio Sesion  -->
+        <activity android:name=".Vista.Inicio_Sesion" android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- Actividad Registrarse -->
-        <activity
-            android:name=".Vista.Registro"
-            android:exported="false" />
-        <!-- Actividad Pantalla Principal -->
-        <activity
-            android:name=".Vista.Pantalla_Principal"
-            android:exported="false" />
-        <!-- Actividad Panel de control del usuario  -->
-        <activity android:name=".Vista.Panel_Control_User"   android:exported="true">
+        <!--  Actividad Registrarse  -->
+        <activity android:name=".Vista.Registro" android:exported="false"/>
+        <!--  Actividad Pantalla Principal  -->
+        <activity android:name=".Vista.Pantalla_Principal" android:exported="false"/>
+        <!--  Actividad Panel de control del usuario   -->
+        <activity android:name=".Vista.Panel_Control_User" android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- Actividad Favoritos -->
-        <activity
-            android:name=".Vista.Favoritos"
-            android:exported="false" />
-        <!-- Actividad Pantalla Publicar -->
-        <activity
-            android:name=".Vista.Categorias"
-            android:exported="false" />
-        <!-- Actividad Aviso Legal -->
-        <activity
-            android:name=".Vista.Aviso_Legal"
-            android:exported="false" />
-        <!-- Actividad Publicar Coche -->
-        <activity
-            android:name=".Vista.Publicar_Coche"
-            android:exported="false" />
-        <!-- Actividad Publicar Moto -->
-        <activity
-            android:name=".Vista.Publicar_Moto"
-            android:exported="false" />
-        <!-- Actividad Publicar Coche -->
-        <activity
-            android:name=".Vista.Publicar_Furgoneta"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.ListaCochesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.Anuncios"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.ListaFurgonetasActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.ListarMotoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Vista.ModificarCredencialesActivity"
-            android:exported="false" />
+        <!--  Actividad Favoritos  -->
+        <activity android:name=".Vista.Favoritos" android:exported="false"/>
+        <!--  Actividad Pantalla Publicar  -->
+        <activity android:name=".Vista.Categorias" android:exported="false"/>
+        <!--  Actividad Aviso Legal  -->
+        <activity android:name=".Vista.Aviso_Legal" android:exported="false"/>
+        <!--  Actividad Publicar Coche  -->
+        <activity android:name=".Vista.Publicar_Coche" android:exported="false"/>
+        <!--  Actividad Publicar Moto  -->
+        <activity android:name=".Vista.Publicar_Moto" android:exported="false"/>
+        <!--  Actividad Publicar Coche  -->
+        <activity android:name=".Vista.Publicar_Furgoneta" android:exported="false"/>
+        <activity android:name=".Vista.ListaCochesActivity" android:exported="false"/>
+        <activity android:name=".Vista.Anuncios" android:exported="false"/>
+        <activity android:name=".Vista.ListaFurgonetasActivity" android:exported="false"/>
+        <activity android:name=".Vista.ListarMotoActivity" android:exported="false"/>
+        <activity android:name=".Vista.ModificarCredencialesActivity" android:exported="false"/>
     </application>
-
 </manifest>

@@ -75,5 +75,5 @@ public class Favorito {
         return "Favorito [id=" + id + ", usuarioId=" + usuarioId + ", anuncioId=" + anuncioId + ", fechaAgregado="
                 + fechaAgregado + ", anuncio=" + anuncio + ", usuario=" + usuario + "]";
     }
-    
+
 }

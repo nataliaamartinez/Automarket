@@ -1,141 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#FFFFFF">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Título -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Publicar Coche"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Campo Marca -->
-        <EditText
-            android:id="@+id/et_marca"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Marca"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo Modelo -->
-        <EditText
-            android:id="@+id/et_modelo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Modelo"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo Año -->
-        <EditText
-            android:id="@+id/et_anio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Año"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:inputType="number"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo Precio -->
-        <EditText
-            android:id="@+id/et_precio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Precio"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo Kilometraje -->
-        <EditText
-            android:id="@+id/et_kilometraje"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Kilometraje"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:inputType="number"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo Carrocería -->
-        <EditText
-            android:id="@+id/et_carroceria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Carrocería"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Campo Descripción -->
-        <EditText
-            android:id="@+id/et_descripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Descripción"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Botón Publicar -->
-        <Button
-            android:id="@+id/btn_publicar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#009688"
-            android:backgroundTint="#000000"
-            android:padding="16dp"
-            android:text="Publicar"
-            android:textColor="#FFFFFF"
-            tools:ignore="TextContrastCheck" />
-
-        <!-- Botón Cancelar -->
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="?android:attr/listDivider" />
-
-        <Button
-            android:id="@+id/btn_cancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#808080"
-            android:padding="16dp"
-            android:text="Cancelar"
-            android:textColor="#000000" />
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp" android:background="#FFFFFF">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <!--  Título  -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Publicar Coche" android:textSize="24sp" android:textStyle="bold" android:textColor="#000000" android:layout_marginBottom="24dp"/>
+        <!--  Campo Marca  -->
+        <EditText android:id="@+id/et_marca" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Marca" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:layout_marginBottom="16dp"/>
+        <!--  Campo Modelo  -->
+        <EditText android:id="@+id/et_modelo" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Modelo" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:layout_marginBottom="16dp"/>
+        <!--  Campo Año  -->
+        <EditText android:id="@+id/et_anio" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Año" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:inputType="number" android:layout_marginBottom="16dp"/>
+        <!--  Campo Precio  -->
+        <EditText android:id="@+id/et_precio" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Precio" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:inputType="numberDecimal" android:layout_marginBottom="16dp"/>
+        <!--  Campo Kilometraje  -->
+        <EditText android:id="@+id/et_kilometraje" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Kilometraje" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:inputType="number" android:layout_marginBottom="16dp"/>
+        <!--  Campo Carrocería  -->
+        <EditText android:id="@+id/et_carroceria" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Carrocería" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:layout_marginBottom="16dp"/>
+        <!--  Campo Descripción  -->
+        <EditText android:id="@+id/et_descripcion" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Descripción" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:layout_marginBottom="24dp"/>
+        <!--  Botón Publicar  -->
+        <Button android:id="@+id/btn_publicar" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#00796B" android:padding="16dp" android:text="Publicar" android:textColor="#FFFFFF"/>
+        <!--  Botón Cancelar  -->
+        <Button android:id="@+id/btn_cancelar" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#808080" android:padding="16dp" android:text="Cancelar" android:textColor="#000000"/>
     </LinearLayout>
 </ScrollView>

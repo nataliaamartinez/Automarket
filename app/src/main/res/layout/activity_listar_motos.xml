@@ -1,27 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <!-- Título o mensaje cuando no hay furgonetas -->
-    <TextView
-        android:id="@+id/tvNoMotos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No hay motos disponibles."
-        android:textSize="18sp"
-        android:visibility="gone"
-        android:textAlignment="center" />
-
-    <!-- Lista de furgonetas -->
-    <ListView
-        android:id="@+id/listViewMotos"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp"
-        android:paddingTop="10dp" />
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+    <!--  Título o mensaje cuando no hay furgonetas  -->
+    <TextView android:id="@+id/tvNoMotos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No hay motos disponibles." android:textSize="18sp" android:visibility="gone" android:textAlignment="center"/>
+    <!--  Lista de furgonetas  -->
+    <ListView android:id="@+id/listViewMotos" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@android:color/darker_gray" android:dividerHeight="0.5dp" android:paddingTop="10dp"/>
 </LinearLayout>

@@ -1,52 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <!-- Campo para el nombre de usuario -->
-    <EditText
-        android:id="@+id/etNombreUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de usuario"
-        android:inputType="text"
-        android:minHeight="48dp" />
-
-    <!-- Campo para el correo electrónico -->
-    <EditText
-        android:id="@+id/etCorreoUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Correo electrónico"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp" />
-
-    <!-- Campo para la nueva contraseña -->
-    <EditText
-        android:id="@+id/etNuevaContrasena"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nueva contraseña"
-        android:inputType="textPassword"
-        android:minHeight="48dp" />
-
-    <!-- Campo para confirmar la nueva contraseña -->
-    <EditText
-        android:id="@+id/etConfirmarContrasena"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirmar nueva contraseña"
-        android:inputType="textPassword"
-        android:minHeight="48dp" />
-
-    <!-- Botón para guardar cambios -->
-    <Button
-        android:id="@+id/btnGuardarCambios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#009688"
-        android:text="Guardar Cambios" />
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+    <!--  Campo para el nombre de usuario  -->
+    <EditText android:id="@+id/etNombreUsuario" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nombre de usuario" android:inputType="text" android:minHeight="48dp"/>
+    <!--  Campo para el correo electrónico  -->
+    <EditText android:id="@+id/etCorreoUsuario" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Correo electrónico" android:inputType="textEmailAddress" android:minHeight="48dp"/>
+    <!--  Campo para la nueva contraseña  -->
+    <EditText android:id="@+id/etNuevaContrasena" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nueva contraseña" android:inputType="textPassword" android:minHeight="48dp"/>
+    <!--  Campo para confirmar la nueva contraseña  -->
+    <EditText android:id="@+id/etConfirmarContrasena" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Confirmar nueva contraseña" android:inputType="textPassword" android:minHeight="48dp"/>
+    <!--  Botón para guardar cambios  -->
+    <Button android:id="@+id/btnGuardarCambios" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Guardar Cambios"/>
 </LinearLayout>

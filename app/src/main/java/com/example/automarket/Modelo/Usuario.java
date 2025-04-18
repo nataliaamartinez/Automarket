@@ -6,7 +6,7 @@ public class Usuario {
     private String email;
     private String contranenia;
 
-    
+
     public Usuario() {
     }
 
@@ -45,6 +45,6 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + ", telefono=" + contranenia + "]";
-    }   
-    
+    }
+
 } 

@@ -8,5 +8,10 @@
     <!--  Campo para confirmar la nueva contraseña  -->
     <EditText android:id="@+id/etConfirmarContrasena" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Confirmar nueva contraseña" android:inputType="textPassword" android:minHeight="48dp"/>
     <!--  Botón para guardar cambios  -->
-    <Button android:id="@+id/btnGuardarCambios" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Guardar Cambios"/>
+    <Button
+        android:id="@+id/btnGuardarCambios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#009688"
+        android:text="Guardar Cambios" />
 </LinearLayout>

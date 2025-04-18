@@ -10,7 +10,23 @@
     <!--  Campo de Repetir Contraseña  -->
     <EditText android:id="@+id/etRepetirContrasena" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:hint="Repetir Contraseña" android:inputType="textPassword" android:minHeight="48dp" android:padding="10dp"/>
     <!--  Botón de Registrar  -->
-    <Button android:id="@+id/btnRegistrar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Registrar" android:layout_marginTop="16dp" android:backgroundTint="@color/purple_500" android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="Registrar"
+        android:textColor="@android:color/white" />
     <!--  Botón de Salir  -->
-    <Button android:id="@+id/btnSalir" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="32dp" android:layout_marginEnd="32dp" android:layout_marginTop="16dp" android:text="Salir" android:backgroundTint="#FF0000" android:textColor="#FFFFFF"/>
+    <Button
+        android:id="@+id/btnSalir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#009688"
+        android:text="Salir"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

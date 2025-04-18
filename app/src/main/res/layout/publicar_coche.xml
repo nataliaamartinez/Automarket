@@ -17,8 +17,22 @@
         <!--  Campo Descripción  -->
         <EditText android:id="@+id/et_descripcion" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Descripción" android:background="@android:drawable/edit_text" android:padding="12dp" android:textColor="#000000" android:textColorHint="#888888" android:layout_marginBottom="24dp"/>
         <!--  Botón Publicar  -->
-        <Button android:id="@+id/btn_publicar" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#00796B" android:padding="16dp" android:text="Publicar" android:textColor="#FFFFFF"/>
+        <Button
+            android:id="@+id/btn_publicar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#009688"
+            android:padding="16dp"
+            android:text="Publicar"
+            android:textColor="#FFFFFF" />
         <!--  Botón Cancelar  -->
-        <Button android:id="@+id/btn_cancelar" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#808080" android:padding="16dp" android:text="Cancelar" android:textColor="#000000"/>
+        <Button
+            android:id="@+id/btn_cancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#009688"
+            android:padding="16dp"
+            android:text="Cancelar"
+            android:textColor="#000000" />
     </LinearLayout>
 </ScrollView>

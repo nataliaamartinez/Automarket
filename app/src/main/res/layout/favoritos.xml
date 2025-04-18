@@ -1,6 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
     <!--  Lista de favoritos  -->
-    <ListView android:id="@+id/listViewFavoritos" android:layout_width="match_parent" android:layout_height="match_parent" android:divider="@android:color/darker_gray" android:dividerHeight="0.5dp" android:choiceMode="singleChoice"/>
     <!--  Mensaje cuando no hay favoritos  -->
+    <ListView
+        android:id="@+id/listViewFavoritos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
+
     <TextView android:id="@+id/tvNoFavoritos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No tienes favoritos aún." android:textSize="18sp" android:visibility="gone" android:layout_gravity="center"/>
 </LinearLayout>

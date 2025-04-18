@@ -6,10 +6,26 @@
     <!--  Campo de Contraseña  -->
     <EditText android:id="@+id/etContrasena" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:hint="Contraseña" android:inputType="textPassword" android:minHeight="48dp" android:padding="10dp"/>
     <!--  Botón de Acceder  -->
-    <Button android:id="@+id/btnAcceder" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Acceder" android:layout_marginTop="16dp" android:backgroundTint="@color/purple_500" android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/btnAcceder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="Acceder"
+        android:textColor="@android:color/white" />
     <!--  Texto y botón para registro  -->
     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="24dp">
         <TextView android:id="@+id/tvNoCuenta" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="¿No tienes cuenta?" android:textColor="@android:color/black"/>
-        <Button android:id="@+id/btnRegistrarse" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Registrarse" android:background="@android:color/transparent" android:textColor="@color/purple_500" android:padding="0dp" android:layout_marginStart="8dp"/>
+
+        <Button
+            android:id="@+id/btnRegistrarse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:text="Registrarse"
+            android:textColor="@color/teal_700" />
     </LinearLayout>
 </LinearLayout>

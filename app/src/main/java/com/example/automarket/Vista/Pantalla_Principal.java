@@ -42,10 +42,8 @@ public class Pantalla_Principal extends AppCompatActivity {
     private TextView tvMapa;
 
     // Barra superior - Modificar Credenciales y Cerrar sesión
-    private LinearLayout barraSuperior;
     private TextView tvNombreUsuario;
-    private Button btnModificarCredenciales;
-    private Button btnCerrarSesion;
+
 
     // URL para listar los coches y furgonetas
     private static final String URL_LISTAR_COCHES = Utils.IP + "listar_coches.php";
@@ -79,10 +77,8 @@ public class Pantalla_Principal extends AppCompatActivity {
         tvMapa = findViewById(R.id.tvMapa);
 
         // Barra superior - Modificar Credenciales y Cerrar sesión
-        barraSuperior = findViewById(R.id.barra2);
         tvNombreUsuario = findViewById(R.id.tvUsuarioNombre);
-        btnModificarCredenciales = findViewById(R.id.btnModificarCredenciales);
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+
 
         // Inicializar lista de vehículos (coches y furgonetas)
         listaVehiculos = new ArrayList<>();
@@ -94,25 +90,7 @@ public class Pantalla_Principal extends AppCompatActivity {
         btnInstagram = findViewById(R.id.btnInstagram);
         btnTwitter = findViewById(R.id.btnTwitter);
 
-        // Configurar listeners para los botones de la barra superior
-        btnModificarCredenciales.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Aquí se debería abrir una nueva actividad para modificar las credenciales
-                Intent intent = new Intent(Pantalla_Principal.this, ModificarCredencialesActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Aquí se debería cerrar la sesión
-                Intent intent = new Intent(Pantalla_Principal.this, Inicio_Sesion.class);
-                startActivity(intent);
-                //finish();  // Finaliza la actividad actual (pantalla principal)
-            }
-        });
 
         btnUsuario.setOnClickListener(new View.OnClickListener() {
             @Override

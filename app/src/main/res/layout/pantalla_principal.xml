@@ -95,35 +95,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Nombre Usuario" />
+                    android:text="Nombre Usuario"
+                    android:textAlignment="center" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-                <!--  Botón para modificar credenciales  -->
-                <!--  Botón para cerrar sesión  -->
-                <Button
-                    android:id="@+id/btnModificarCredenciales"
-                    android:layout_width="148dp"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="Modificar Credenciales"
-                    android:padding="8dp"
-                    android:text="Modificar Credenciales"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/btnCerrarSesion"
-                    android:layout_width="98dp"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="Cerrar Sesión"
-                    android:padding="8dp"
-                    android:text="Cerrar Sesión"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <TextView
@@ -132,7 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
-                android:text="¿Qué deseas buscar?" />
+                android:text="¿Qué deseas buscar?"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

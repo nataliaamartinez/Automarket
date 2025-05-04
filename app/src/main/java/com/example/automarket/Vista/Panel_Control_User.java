@@ -18,7 +18,8 @@ public class Panel_Control_User extends AppCompatActivity {
     // Elementos de la barra superior
     private TextView tvUsuario;
     private Button btnAnadir;
-
+    private Button btnModificarCredenciales;
+    private Button btnCerrarSesion;
     // Elementos de los anuncios
     private Button btnBorrarAnuncio1, btnModificarAnuncio1;
     private ImageView imageAnuncio1;
@@ -35,6 +36,8 @@ public class Panel_Control_User extends AppCompatActivity {
         // Inicializar vistas de la barra superior
         tvUsuario = findViewById(R.id.tvUsuario);
         btnAnadir = findViewById(R.id.btnAnadir);
+        btnModificarCredenciales = findViewById(R.id.btnModificarCredenciales);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
         // Inicializar vistas de los anuncios
         imageAnuncio1 = findViewById(R.id.imageAnuncio1);
@@ -56,7 +59,23 @@ public class Panel_Control_User extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnModificarCredenciales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Panel_Control_User.this, ModificarCredencialesActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Panel_Control_User.this, Inicio_Sesion.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish(); // Cierra esta actividad para evitar volver con el botón "Atrás"
+            }
+        });
         // Configurar el botón de "Borrar" en el Anuncio 1
         btnBorrarAnuncio1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,14 +20,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Usuario"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+
 
             <Button
                 android:id="@+id/btnModificarCredenciales"

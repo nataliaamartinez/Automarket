@@ -98,7 +98,6 @@ public class Publicar_Coche extends AppCompatActivity {
                 params.put("carroceria", carroceria);
                 params.put("precio", precio);
                 params.put("descripcion", descripcion);
-                params.put("vendedor_id", vendedorId);
                 return params;
             }
         };

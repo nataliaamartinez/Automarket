@@ -34,7 +34,7 @@ public class Panel_Control_User extends AppCompatActivity {
         setContentView(R.layout.panel_control_user);
 
         // Inicializar vistas de la barra superior
-        tvUsuario = findViewById(R.id.tvUsuario);
+        //tvUsuario = findViewById(R.id.tvUsuario);
         btnAnadir = findViewById(R.id.btnAnadir);
         btnModificarCredenciales = findViewById(R.id.btnModificarCredenciales);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);

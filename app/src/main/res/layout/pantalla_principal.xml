@@ -1,324 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E2E3DE"
-    android:onClick="listarMotos">
-    <!--  Contenido principal en ScrollView  -->
+    android:background="#FFFFFF">
+
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="574dp"
-        android:layout_above="@id/footer"
-        android:layout_marginBottom="-65dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!--  Barra superior  -->
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Encabezado -->
             <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#E4E5E0"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp">
 
-                <ImageView
-                    android:id="@+id/tvLogo"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/logo" />
+                <TextView
+                    android:id="@+id/tvTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AutoMarket"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#333333" />
 
-                <ImageButton
-                    android:id="@+id/btnUsuario"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/ic_usuario"
-                    tools:ignore="TouchTargetSizeCheck" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-                <ImageButton
-                    android:id="@+id/btnMensaje"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FFFFFF"
-                    android:contentDescription="Botón de mensaje"
-                    android:padding="8dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/mensaje"
-                    tools:ignore="TouchTargetSizeCheck" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                <ImageButton
-                    android:id="@+id/btnFavoritos"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="Botón de favoritos"
-                    android:padding="8dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/favorito"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    <ImageButton
+                        android:id="@+id/btnUsuario"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="Usuario"
+                        android:src="@drawable/ic_usuario"
+                        app:tint="#000000"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+
+                    <ImageButton
+                        android:id="@+id/btnFavoritos"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="Favoritos"
+                        android:src="@drawable/favorito"
+                        app:tint="#000000"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btnPublicar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#009688"
                     android:text="Publicar +"
-                    android:textColor="#FFFFFF" />
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#00796B"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
-            <!--  Barra superior con logotipo del usuario y opciones  -->
-            <!--  Área de búsqueda  -->
-            <LinearLayout
-                android:id="@+id/barra2"
-                android:layout_width="match_parent"
+
+            <!-- Nombre usuario -->
+            <TextView
+                android:id="@+id/tvUsuarioNombre"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#E3E4DF"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                tools:ignore="ExtraText">
-                <!--  Logotipo del usuario  -->
-                <!--  Este es el logo del usuario  -->
-                <!--  Aquí iría el nombre del usuario  -->
-                android:textColor="#FFFFFF" android:textSize="16sp"
-                android:gravity="center_vertical" />
+                android:text="Nombre Usuario"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp" />
 
-                <TextView
-                    android:id="@+id/tvUsuarioNombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Nombre Usuario"
-                    android:textAlignment="center" />
 
-            </LinearLayout>
 
+            <!-- Texto encabezado de categorías -->
             <TextView
                 android:id="@+id/tvQueBuscar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
                 android:text="¿Qué deseas buscar?"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
 
+            <!-- Barra de búsqueda -->
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="Buscar anuncios..." />
+
+            <!-- Botones de categorías -->
             <LinearLayout
+                android:id="@+id/categorias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp">
-
-                <EditText
-                    android:id="@+id/etBuscar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="Buscar"
-                    android:minHeight="48dp" />
-
-                <Button
-                    android:id="@+id/btnBuscar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#009688"
-                    android:text="Buscar" />
-            </LinearLayout>
-            <!--  Botones de categoría  -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
 
                 <Button
                     android:id="@+id/btnCoche"
-                    android:layout_width="78dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#009688"
-                    android:onClick="listarCoches"
-                    android:text="Coche" />
+                    android:text="Coche"
+                    android:textSize="12sp"
+                    android:layout_marginEnd="4dp" />
 
                 <Button
                     android:id="@+id/btnFurgoneta"
-                    android:layout_width="135dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#009688"
-                    android:onClick="listarFurgonetas"
-                    android:text="Furgoneta" />
+                    android:text="Furgoneta"
+                    android:textSize="12sp"
+                    android:layout_marginEnd="4dp" />
 
                 <Button
                     android:id="@+id/btnMoto"
-                    android:layout_width="65dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="#009688"
-                    android:text="Moto" />
+                    android:text="Moto"
+                    android:textSize="12sp" />
             </LinearLayout>
-            <!--  Anuncios  -->
-            <TextView
-                android:id="@+id/tvAnuncio1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:padding="16dp"
-                android:textSize="16sp"
-                android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tvAnuncio2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:padding="16dp"
-                android:textSize="16sp"
-                android:visibility="gone" />
-            <!--  Nuevo ListView para los coches  -->
+            <!-- Lista de anuncios -->
             <ListView
                 android:id="@+id/listViewCoches"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-            <!--  Oculto inicialmente  -->
-            <!--  Nuevo TextView para mostrar "No hay coches"  -->
-            <TextView
-                android:id="@+id/tvNoCoches"
+                android:layout_height="wrap_content" />
+
+            <!-- Footer -->
+            <LinearLayout
+                android:id="@+id/footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:padding="16dp"
-                android:text="No hay coches disponibles"
-                android:visibility="gone" />
-            <!--  Oculto inicialmente  -->
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:background="#333333"
+                android:layout_marginTop="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvAvisoLegal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aviso Legal"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginHorizontal="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvContactanos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Contáctanos"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginHorizontal="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvMapa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mapa"
+                        android:textColor="#FFEB3B"
+                        android:textSize="12sp"
+                        android:layout_marginHorizontal="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp">
+
+                    <ImageButton
+                        android:id="@+id/btnFacebook"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/facebook"
+                        android:tint="#000000"
+                        android:layout_marginEnd="8dp"
+                        tools:ignore="UseAppTint" />
+
+                    <ImageButton
+                        android:id="@+id/btnInstagram"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/instagram"
+                        android:tint="#000000"
+                        android:layout_marginEnd="8dp"
+                        tools:ignore="UseAppTint" />
+
+                    <ImageButton
+                        android:id="@+id/btnTwitter"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/twitter"
+                        android:tint="#000000"
+                        tools:ignore="UseAppTint" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-    <!--  Footer fijo en la parte inferior  -->
-    <LinearLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="191dp"
-        android:layout_alignParentBottom="true"
-        android:background="#000000"
-        android:orientation="vertical">
-        <!--  Contenedor para Aviso Legal y Contáctanos  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvAvisoLegal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#000000"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="Aviso Legal"
-                android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <TextView
-                android:id="@+id/tvContactanos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="Contáctanos"
-                android:textColor="#FFFFFF"
-                tools:ignore="TouchTargetSizeCheck" />
-        </LinearLayout>
-        <!--  Redes Sociales centradas  -->
-        <LinearLayout
-            android:id="@+id/RedesSociales"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="16dp"
-                android:text="Redes Sociales:"
-                android:textColor="#FFFFFF" />
-
-            <ImageButton
-                android:id="@+id/btnFacebook"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/facebook"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <ImageButton
-                android:id="@+id/btnInstagram"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/white"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/instagram"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-            <ImageButton
-                android:id="@+id/btnTwitter"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="TODO"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/twitter"
-                tools:ignore="TouchTargetSizeCheck" />
-        </LinearLayout>
-        <!--  Mapa  -->
-        <TextView
-            android:id="@+id/tvMapa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:background="#000000"
-            android:clickable="true"
-            android:focusable="true"
-            android:minHeight="48dp"
-            android:padding="8dp"
-            android:text="Mapa"
-            android:textColor="#FFEB3B" />
-        <!--  Copyright  -->
-        <TextView
-            android:id="@+id/tvCopyright"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="Copyright © 2025 AutoMarket"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
 </RelativeLayout>

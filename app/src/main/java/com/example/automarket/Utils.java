@@ -1,5 +1,5 @@
 package com.example.automarket;
 
 public class Utils {
-    public static final  String IP = "http://10.0.2.2/automarket_/";
+    public static final  String IP = "http://192.168.1.39/automarket/";
 }

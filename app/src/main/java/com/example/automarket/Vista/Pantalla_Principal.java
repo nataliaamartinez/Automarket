@@ -3,36 +3,39 @@ package com.example.automarket.Vista;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.automarket.R;
 import com.example.automarket.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class Pantalla_Principal extends AppCompatActivity {
 
-    private ImageButton btnUsuario, btnMensaje, btnFavoritos;
-    private Button btnPublicar, btnBuscar, btnCoche, btnFurgoneta, btnMoto;
-    private EditText etBuscar;
-    private ImageButton btnFacebook, btnInstagram, btnTwitter;
-    private ListView listViewCoches;
+    private ImageButton btnUsuario, /*btnMensaje,*/ btnFavoritos, btnFacebook, btnInstagram, btnTwitter;
     private TextView tvNoCoches, tvAvisoLegal, tvContactanos, tvMapa, tvNombreUsuario;
-
-    private static final String URL_LISTAR_COCHES = Utils.IP + "listar_coches.php";
-    private static final String URL_LISTAR_FURGONETAS = Utils.IP + "listar_furgonetas.php";
-    private static final String URL_PUBLICAR = Utils.IP + "publicar_coche.php";
+    private ListView listViewCoches;
+    private SearchView searchView;
 
     private ArrayList<String> listaVehiculos;
+    private ArrayList<JSONObject> datosVehiculos;
     private ArrayAdapter<String> vehiculosAdapter;
 
     @Override
@@ -40,115 +43,89 @@ public class Pantalla_Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_principal);
 
-        // Inicializar vistas
         inicializarVistas();
 
-        // Inicializar adaptador de lista
         listaVehiculos = new ArrayList<>();
+        datosVehiculos = new ArrayList<>();
         vehiculosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaVehiculos);
         listViewCoches.setAdapter(vehiculosAdapter);
 
-        // Configurar listeners
-        configurarBotones();
+        cargarVehiculos();
 
-        // Mostrar nombre de usuario si se recibió desde otra actividad
+        listViewCoches.setOnItemClickListener((parent, view, position, id) -> {
+            try {
+                JSONObject vehiculo = datosVehiculos.get(position);
+                String email = vehiculo.getString("email");
+                String asunto = "Consulta sobre " + vehiculo.getString("marca") + " " + vehiculo.getString("modelo");
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, asunto);
+                startActivity(emailIntent);
+            } catch (Exception e) {
+                Toast.makeText(this, "Error al abrir correo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<String> filtrados = new ArrayList<>();
+                for (String v : listaVehiculos) {
+                    if (v.toLowerCase().contains(newText.toLowerCase())) {
+                        filtrados.add(v);
+                    }
+                }
+                listViewCoches.setAdapter(new ArrayAdapter<>(Pantalla_Principal.this, android.R.layout.simple_list_item_1, filtrados));
+                return true;
+            }
+        });
+
         String usuario = getIntent().getStringExtra("usuario");
         if (usuario != null && !usuario.isEmpty()) {
             tvNombreUsuario.setText(usuario);
             Toast.makeText(this, "Bienvenido " + usuario, Toast.LENGTH_SHORT).show();
         }
+
+        configurarBotones();
     }
 
     private void inicializarVistas() {
         btnUsuario = findViewById(R.id.btnUsuario);
-        btnMensaje = findViewById(R.id.btnMensaje);
+        // btnMensaje = findViewById(R.id.btnMensaje); // Comentado porque el botón ya no existe
         btnFavoritos = findViewById(R.id.btnFavoritos);
-        btnPublicar = findViewById(R.id.btnPublicar);
-        btnBuscar = findViewById(R.id.btnBuscar);
-        btnCoche = findViewById(R.id.btnCoche);
-        btnFurgoneta = findViewById(R.id.btnFurgoneta);
-        btnMoto = findViewById(R.id.btnMoto);
-        etBuscar = findViewById(R.id.etBuscar);
+        btnFacebook = findViewById(R.id.btnFacebook);
+        btnInstagram = findViewById(R.id.btnInstagram);
+        btnTwitter = findViewById(R.id.btnTwitter);
         tvNoCoches = findViewById(R.id.tvNoCoches);
-        listViewCoches = findViewById(R.id.listViewCoches);
         tvAvisoLegal = findViewById(R.id.tvAvisoLegal);
         tvContactanos = findViewById(R.id.tvContactanos);
         tvMapa = findViewById(R.id.tvMapa);
         tvNombreUsuario = findViewById(R.id.tvUsuarioNombre);
-        btnFacebook = findViewById(R.id.btnFacebook);
-        btnInstagram = findViewById(R.id.btnInstagram);
-        btnTwitter = findViewById(R.id.btnTwitter);
+        listViewCoches = findViewById(R.id.listViewCoches);
+        searchView = findViewById(R.id.searchView);
     }
 
     private void configurarBotones() {
         btnUsuario.setOnClickListener(v -> startActivity(new Intent(this, Panel_Control_User.class)));
-
-        btnMensaje.setOnClickListener(v -> {
-            try {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_APP_MESSAGING);
-                startActivity(intent);
-            } catch (Exception e) {
-                mostrarError("No se encontró una aplicación de mensajes", e);
-            }
-        });
-
-        btnFavoritos.setOnClickListener(v -> {
-            try {
-                startActivity(new Intent(this, Favoritos.class));
-            } catch (Exception e) {
-                mostrarError("Error al abrir favoritos", e);
-            }
-        });
-
-        btnPublicar.setOnClickListener(v -> {
-            try {
-                startActivity(new Intent(this, Categorias.class));
-            } catch (Exception e) {
-                mostrarError("Error al abrir pantalla de publicación", e);
-            }
-        });
-
-        btnBuscar.setOnClickListener(v -> {
-            String busqueda = etBuscar.getText().toString().trim();
-            Toast.makeText(this, "Buscando: " + busqueda, Toast.LENGTH_SHORT).show();
-            // Aquí podrías agregar la lógica real de búsqueda
-        });
-
-        btnCoche.setOnClickListener(v -> startActivity(new Intent(this, ListaCochesActivity.class)));
-        btnFurgoneta.setOnClickListener(v -> startActivity(new Intent(this, ListaFurgonetasActivity.class)));
-        btnMoto.setOnClickListener(v -> startActivity(new Intent(this, ListarMotoActivity.class)));
-
+        // btnMensaje.setOnClickListener(v -> abrirAppMensajes()); // Eliminado porque ya no existe el botón
+        btnFavoritos.setOnClickListener(v -> startActivity(new Intent(this, Favoritos.class)));
         btnFacebook.setOnClickListener(v -> abrirRedSocial("https://www.facebook.com/automarket"));
         btnInstagram.setOnClickListener(v -> abrirRedSocial("https://www.instagram.com/automarket"));
         btnTwitter.setOnClickListener(v -> abrirRedSocial("https://www.twitter.com/automarket"));
-
-        tvAvisoLegal.setOnClickListener(v -> {
-            try {
-                startActivity(new Intent(this, Aviso_Legal.class));
-            } catch (Exception e) {
-                mostrarError("Error al abrir el aviso legal", e);
-            }
-        });
-
-        tvContactanos.setOnClickListener(v -> {
-            try {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:+34666777888"));
-                startActivity(intent);
-            } catch (Exception e) {
-                mostrarError("No se pudo abrir la aplicación de llamadas", e);
-            }
-        });
-
+        tvAvisoLegal.setOnClickListener(v -> startActivity(new Intent(this, Aviso_Legal.class)));
+        tvContactanos.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:+34666777888"))));
         tvMapa.setOnClickListener(v -> abrirMapa());
     }
 
     private void abrirRedSocial(String url) {
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (Exception e) {
-            mostrarError("No se pudo abrir la red social", e);
+            Toast.makeText(this, "No se pudo abrir la red social", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -166,12 +143,32 @@ public class Pantalla_Principal extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mapsUrl)));
             }
         } catch (Exception e) {
-            mostrarError("No se pudo abrir el mapa", e);
+            Toast.makeText(this, "No se pudo abrir el mapa", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void mostrarError(String mensaje, Exception e) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
-        e.printStackTrace();
+    private void cargarVehiculos() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Utils.IP + "listar_anuncios.php";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray array = new JSONArray(response);
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.getJSONObject(i);
+                            datosVehiculos.add(obj);
+                            String info = obj.getString("marca") + " " + obj.getString("modelo") + " - " + obj.getString("precio") + "€";
+                            listaVehiculos.add(info);
+                        }
+                        vehiculosAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Error al cargar anuncios", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(this, "Error de red", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
     }
 }

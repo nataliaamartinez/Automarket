@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFFFFF"
     android:orientation="vertical">
 
@@ -10,48 +11,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000000"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/btnModificarCredenciales"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:text="Modificar Credenciales"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:backgroundTint="@android:color/transparent" />
 
-
-
-            <Button
-                android:id="@+id/btnModificarCredenciales"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="Modificar Credenciales"
-                android:padding="8dp"
-                android:text="Modificar Credenciales"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:id="@+id/btnCerrarSesion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="Cerrar Sesión"
-            android:padding="8dp"
             android:text="Cerrar Sesión"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@android:color/transparent" />
 
         <Button
             android:id="@+id/btnAnadir"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#009688"
             android:text="Añadir +"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#009688" />
     </LinearLayout>
 
     <!-- Sección de anuncios -->
@@ -71,169 +72,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#EEEEEE"
+                android:padding="12dp"
+                android:elevation="2dp"
+                android:gravity="center_vertical">
 
-                <ImageView
-                    android:id="@+id/imageAnuncio1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="#DDDDDD" />
 
                 <TextView
                     android:id="@+id/tvAnuncio1"
-                    android:layout_width="108dp"
-                    android:layout_height="wrap_content"
-                    android:text="Anuncio 1"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Anuncio 1"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:maxLines="2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginStart="16dp">
+                    android:layout_marginStart="12dp"
+                    android:gravity="center">
 
                     <Button
                         android:id="@+id/btnBorrarAnuncio1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#009688"
-                        android:text="Borrar" />
+                        android:backgroundTint="#E53935"
+                        android:text="Borrar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/btnModificarAnuncio1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
                         android:backgroundTint="#009688"
-                        android:text="Modificar" />
+                        android:text="Modificar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
-
-            <!-- Puedes duplicar este bloque para más anuncios -->
         </LinearLayout>
     </ScrollView>
-
-    <!-- Footer -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvAvisoLegal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aviso Legal"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic" />
-
-            <Space
-                android:layout_width="156dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/tvContactanos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contáctanos"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="Redes Sociales:"
-                    android:textColor="#FFFFFF" />
-
-                <ImageButton
-                    android:id="@+id/btnFacebook"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:padding="8dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/facebook"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-                <ImageButton
-                    android:id="@+id/btnInstagram"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:padding="8dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/instagram"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <ImageButton
-                    android:id="@+id/btnTwitter"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="Twitter"
-                    android:padding="8dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/twitter"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvMapa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#000000"
-            android:padding="8dp"
-            android:text="Mapa"
-            android:textColor="#FFEB3B" />
-
-        <TextView
-            android:id="@+id/tvCopyright"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Copyright © 2025 AutoMarket"
-            android:textColor="#FFFFFF"
-            android:textStyle="italic" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
 </LinearLayout>

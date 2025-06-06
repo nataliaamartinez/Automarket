@@ -3,16 +3,16 @@ package com.example.automarket.Vista;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -29,42 +29,173 @@ import java.util.ArrayList;
 
 public class Pantalla_Principal extends AppCompatActivity {
 
-    private ImageButton btnUsuario, /*btnMensaje,*/ btnFavoritos, btnFacebook, btnInstagram, btnTwitter;
-    private TextView tvNoCoches, tvAvisoLegal, tvContactanos, tvMapa, tvNombreUsuario;
+    //private ImageButton btnFavoritos, btnFacebook, btnInstagram, btnTwitter;
+    private TextView tvUsuario, tvNoCoches, tvAvisoLegal, tvContactanos, tvMapa, tvNombreUsuario;
     private ListView listViewCoches;
     private SearchView searchView;
+    private Button btnAnadir, btnPanelUsuario;
 
     private ArrayList<String> listaVehiculos;
     private ArrayList<JSONObject> datosVehiculos;
     private ArrayAdapter<String> vehiculosAdapter;
 
+    private String usuarioActual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pantalla_principal);
 
-        inicializarVistas();
+        try {
+            setContentView(R.layout.pantalla_principal);
+            Log.d("DEBUG", "Layout cargado correctamente");
 
-        listaVehiculos = new ArrayList<>();
-        datosVehiculos = new ArrayList<>();
-        vehiculosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaVehiculos);
-        listViewCoches.setAdapter(vehiculosAdapter);
+            inicializarVistas();
+            Log.d("DEBUG", "Vistas inicializadas");
 
-        cargarVehiculos();
+            listaVehiculos = new ArrayList<>();
+            datosVehiculos = new ArrayList<>();
+            vehiculosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaVehiculos);
+            listViewCoches.setAdapter(vehiculosAdapter);
+
+            usuarioActual = getIntent().getStringExtra("usuario");
+            if (usuarioActual != null && !usuarioActual.isEmpty()) {
+                if (tvNombreUsuario != null) {
+                    tvNombreUsuario.setText(usuarioActual);
+                }
+            }
+
+            cargarVehiculos();
+            configurarBusqueda();
+            configurarBotones();
+
+        } catch (Exception e) {
+            Log.e("CRASH_DEBUG", "Error en onCreate: " + e.getMessage());
+            Toast.makeText(this, "Error en la pantalla principal", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    private void inicializarVistas() {
+        tvUsuario = findViewById(R.id.tvUsuario);
+        tvNoCoches = findViewById(R.id.tvNoCoches);
+        tvNombreUsuario = findViewById(R.id.tvUsuarioNombre);
+        listViewCoches = findViewById(R.id.listViewCoches);
+        searchView = findViewById(R.id.searchView);
+        btnAnadir = findViewById(R.id.btnAnadir);
+        btnPanelUsuario = findViewById(R.id.btnPanelUsuario);
+        if (btnPanelUsuario == null) {
+            Toast.makeText(this, "btnPanelUsuario es NULL", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "btnPanelUsuario OK", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void configurarBotones() {
+        btnPanelUsuario.setOnClickListener(v -> {
+            try {
+                Log.d("BOTON_PANEL", "Click en Panel Usuario");
+                Intent intent = new Intent(Pantalla_Principal.this, Panel_Control_User.class);
+                intent.putExtra("usuario", usuarioActual);
+                startActivity(intent);
+            } catch (Exception e) {
+                Toast.makeText(Pantalla_Principal.this,
+                        "ERROR al abrir Panel: " + e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnAnadir.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Categorias.class);
+            intent.putExtra("usuario", usuarioActual);
+            startActivity(intent);
+        });
+
+        /*btnFavoritos.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Favoritos.class);
+            intent.putExtra("usuario", usuarioActual);
+            startActivity(intent);
+        });*/
+
+
+    }
+
+    private void cargarVehiculos() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Utils.IP + "listar_anuncio.php";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    Log.d("RESPUESTA", response);
+
+                    try {
+                        JSONArray array = new JSONArray(response);
+
+                        listaVehiculos.clear();
+                        datosVehiculos.clear();
+
+                        if (array.length() == 0) {
+                            tvNoCoches.setText("No hay coches disponibles.");
+                            tvNoCoches.setVisibility(TextView.VISIBLE);
+                            return;
+                        }
+
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.getJSONObject(i);
+                            datosVehiculos.add(obj);
+
+                            // Asegúrate de que los campos existen
+                            String marca = obj.optString("marca", "Desconocido");
+                            String modelo = obj.optString("modelo", "Modelo");
+                            String precio = obj.optString("precio", "0.00");
+
+                            String info = marca + " " + modelo + " - " + precio + "€";
+                            listaVehiculos.add(info);
+                        }
+
+                        vehiculosAdapter.notifyDataSetChanged();
+                        tvNoCoches.setVisibility(View.GONE);
+
+                    } catch (Exception e) {
+                        Log.e("JSON_ERROR", "Error procesando JSON: " + e.getMessage());
+                        Toast.makeText(this, "Error al procesar los anuncios", Toast.LENGTH_SHORT).show();
+                        tvNoCoches.setText("Error cargando anuncios.");
+                        tvNoCoches.setVisibility(View.VISIBLE);
+                    }
+                },
+                error -> {
+                    Log.e("VOLLEY_ERROR", "Error de red: " + error.toString());
+                    Toast.makeText(this, "Error de red al cargar vehículos", Toast.LENGTH_SHORT).show();
+                    tvNoCoches.setText("No se pudo conectar con el servidor.");
+                    tvNoCoches.setVisibility(View.VISIBLE);
+                });
+
+        queue.add(request);
 
         listViewCoches.setOnItemClickListener((parent, view, position, id) -> {
             try {
                 JSONObject vehiculo = datosVehiculos.get(position);
-                String email = vehiculo.getString("email");
-                String asunto = "Consulta sobre " + vehiculo.getString("marca") + " " + vehiculo.getString("modelo");
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, asunto);
-                startActivity(emailIntent);
+                String email = vehiculo.optString("email", "");
+                String marca = vehiculo.optString("marca", "");
+                String modelo = vehiculo.optString("modelo", "");
+
+                if (!email.isEmpty()) {
+                    String asunto = "Consulta sobre " + marca + " " + modelo;
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, asunto);
+                    startActivity(emailIntent);
+                } else {
+                    Toast.makeText(this, "No hay correo para este anuncio", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
+                Log.e("EMAIL_ERROR", "Error al abrir correo: " + e.getMessage());
                 Toast.makeText(this, "Error al abrir correo", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+
+    private void configurarBusqueda() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -79,96 +210,11 @@ public class Pantalla_Principal extends AppCompatActivity {
                         filtrados.add(v);
                     }
                 }
-                listViewCoches.setAdapter(new ArrayAdapter<>(Pantalla_Principal.this, android.R.layout.simple_list_item_1, filtrados));
+
+                listViewCoches.setAdapter(new ArrayAdapter<>(Pantalla_Principal.this,
+                        android.R.layout.simple_list_item_1, filtrados));
                 return true;
             }
         });
-
-        String usuario = getIntent().getStringExtra("usuario");
-        if (usuario != null && !usuario.isEmpty()) {
-            tvNombreUsuario.setText(usuario);
-            Toast.makeText(this, "Bienvenido " + usuario, Toast.LENGTH_SHORT).show();
-        }
-
-        configurarBotones();
-    }
-
-    private void inicializarVistas() {
-        btnUsuario = findViewById(R.id.btnUsuario);
-        // btnMensaje = findViewById(R.id.btnMensaje); // Comentado porque el botón ya no existe
-        btnFavoritos = findViewById(R.id.btnFavoritos);
-        btnFacebook = findViewById(R.id.btnFacebook);
-        btnInstagram = findViewById(R.id.btnInstagram);
-        btnTwitter = findViewById(R.id.btnTwitter);
-        tvNoCoches = findViewById(R.id.tvNoCoches);
-        tvAvisoLegal = findViewById(R.id.tvAvisoLegal);
-        tvContactanos = findViewById(R.id.tvContactanos);
-        tvMapa = findViewById(R.id.tvMapa);
-        tvNombreUsuario = findViewById(R.id.tvUsuarioNombre);
-        listViewCoches = findViewById(R.id.listViewCoches);
-        searchView = findViewById(R.id.searchView);
-    }
-
-    private void configurarBotones() {
-        btnUsuario.setOnClickListener(v -> startActivity(new Intent(this, Panel_Control_User.class)));
-        // btnMensaje.setOnClickListener(v -> abrirAppMensajes()); // Eliminado porque ya no existe el botón
-        btnFavoritos.setOnClickListener(v -> startActivity(new Intent(this, Favoritos.class)));
-        btnFacebook.setOnClickListener(v -> abrirRedSocial("https://www.facebook.com/automarket"));
-        btnInstagram.setOnClickListener(v -> abrirRedSocial("https://www.instagram.com/automarket"));
-        btnTwitter.setOnClickListener(v -> abrirRedSocial("https://www.twitter.com/automarket"));
-        tvAvisoLegal.setOnClickListener(v -> startActivity(new Intent(this, Aviso_Legal.class)));
-        tvContactanos.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:+34666777888"))));
-        tvMapa.setOnClickListener(v -> abrirMapa());
-    }
-
-    private void abrirRedSocial(String url) {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-        } catch (Exception e) {
-            Toast.makeText(this, "No se pudo abrir la red social", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void abrirMapa() {
-        try {
-            String direccion = "Calle de Embajadores, 181, 28045 Madrid";
-            String uri = "geo:0,0?q=" + Uri.encode(direccion);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            intent.setPackage("com.google.android.apps.maps");
-
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                String mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + Uri.encode(direccion);
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mapsUrl)));
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "No se pudo abrir el mapa", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void cargarVehiculos() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = Utils.IP + "listar_anuncios.php";
-
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        JSONArray array = new JSONArray(response);
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            datosVehiculos.add(obj);
-                            String info = obj.getString("marca") + " " + obj.getString("modelo") + " - " + obj.getString("precio") + "€";
-                            listaVehiculos.add(info);
-                        }
-                        vehiculosAdapter.notifyDataSetChanged();
-                    } catch (Exception e) {
-                        Toast.makeText(this, "Error al cargar anuncios", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> Toast.makeText(this, "Error de red", Toast.LENGTH_SHORT).show()
-        );
-
-        queue.add(request);
     }
 }

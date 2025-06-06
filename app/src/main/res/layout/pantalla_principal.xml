@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FAFAFA"
+    tools:context=".Vista.Pantalla_Principal">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,85 +18,61 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Encabezado -->
+            <!-- Título de la app -->
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AUTOMARKET"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#00796B"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Barra de acciones -->
             <LinearLayout
-                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingBottom="8dp">
+                android:layout_marginBottom="12dp">
 
                 <TextView
-                    android:id="@+id/tvTitulo"
+                    android:id="@+id/tvUsuarioNombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AutoMarket"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="#333333" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Nombre Usuario"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/btnPanelUsuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageButton
-                        android:id="@+id/btnUsuario"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginEnd="4dp"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="Usuario"
-                        android:src="@drawable/ic_usuario"
-                        app:tint="#000000"
-                        tools:ignore="TouchTargetSizeCheck" />
-
-
-                    <ImageButton
-                        android:id="@+id/btnFavoritos"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="Favoritos"
-                        android:src="@drawable/favorito"
-                        app:tint="#000000"
-                        tools:ignore="TouchTargetSizeCheck" />
-
-                </LinearLayout>
+                    android:text="Panel Usuario"
+                    android:textSize="13sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#3F51B5"
+                    android:layout_marginEnd="8dp" />
 
                 <Button
-                    android:id="@+id/btnPublicar"
+                    android:id="@+id/btnAnadir"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Publicar +"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="#FFFFFF"
-                    android:backgroundTint="#00796B"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:layout_marginStart="8dp" />
+                    android:backgroundTint="#009688" />
             </LinearLayout>
 
-            <!-- Nombre usuario -->
-            <TextView
-                android:id="@+id/tvUsuarioNombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre Usuario"
-                android:textColor="#666666"
-                android:textSize="12sp"
-                android:layout_marginBottom="8dp" />
-
-
-
-            <!-- Texto encabezado de categorías -->
+            <!-- Sección de búsqueda -->
             <TextView
                 android:id="@+id/tvQueBuscar"
                 android:layout_width="wrap_content"
@@ -107,20 +84,19 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Barra de búsqueda -->
             <SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:queryHint="Buscar anuncios..." />
 
-            <!-- Botones de categorías -->
+            <!-- Categorías -->
             <LinearLayout
-                android:id="@+id/categorias"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="16dp">
 
                 <Button
@@ -156,87 +132,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <!-- Footer -->
-            <LinearLayout
-                android:id="@+id/footer"
+            <!-- Mensaje de error o sin coches -->
+            <TextView
+                android:id="@+id/tvNoCoches"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp"
-                android:background="#333333"
-                android:layout_marginTop="24dp">
+                android:text="No hay coches disponibles"
+                android:textColor="#F44336"
+                android:textAlignment="center"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/tvAvisoLegal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Aviso Legal"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:id="@+id/tvContactanos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Contáctanos"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:id="@+id/tvMapa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mapa"
-                        android:textColor="#FFEB3B"
-                        android:textSize="12sp"
-                        android:layout_marginHorizontal="8dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp">
-
-                    <ImageButton
-                        android:id="@+id/btnFacebook"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/facebook"
-                        android:tint="#000000"
-                        android:layout_marginEnd="8dp"
-                        tools:ignore="UseAppTint" />
-
-                    <ImageButton
-                        android:id="@+id/btnInstagram"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/instagram"
-                        android:tint="#000000"
-                        android:layout_marginEnd="8dp"
-                        tools:ignore="UseAppTint" />
-
-                    <ImageButton
-                        android:id="@+id/btnTwitter"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/twitter"
-                        android:tint="#000000"
-                        tools:ignore="UseAppTint" />
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -91,12 +91,14 @@ public class Inicio_Sesion extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
 
                             if (success) {
+                                int usuarioId = jsonObject.getInt("usuario_id"); // <- Este campo debe venir del JSON
                                 Toast.makeText(Inicio_Sesion.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Inicio_Sesion.this, Pantalla_Principal.class);
-                                intent.putExtra("usuario", usuario);
+                                intent.putExtra("usuario", usuario); // Nombre
+                                intent.putExtra("usuario_id", usuarioId + ""); // ID como String
                                 startActivity(intent);
                                 finish();
-                            } else {
+                            }else {
                                 Toast.makeText(Inicio_Sesion.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {

@@ -1,9 +1,9 @@
 package com.example.automarket.Vista;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,10 +23,7 @@ import java.net.URL;
 
 public class ModificarCredencialesActivity extends AppCompatActivity {
 
-    private EditText etNombreUsuario;
-    private EditText etCorreoUsuario;
-    private EditText etNuevaContrasena;
-    private EditText etConfirmarContrasena;
+    private EditText etNombreUsuario, etCorreoUsuario, etNuevaContrasena, etConfirmarContrasena;
     private Button btnGuardarCambios;
     private String nombreUsuario;
     private String correoUsuario;
@@ -36,129 +33,89 @@ public class ModificarCredencialesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_credenciales);
 
-        // Inicializar vistas
         etNombreUsuario = findViewById(R.id.etNombreUsuario);
         etCorreoUsuario = findViewById(R.id.etCorreoUsuario);
         etNuevaContrasena = findViewById(R.id.etNuevaContrasena);
         etConfirmarContrasena = findViewById(R.id.etConfirmarContrasena);
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios);
 
-        // Obtener los datos del usuario desde la actividad anterior (Pantalla_Principal)
-        nombreUsuario = getIntent().getStringExtra("nombreUsuario");
-        correoUsuario = getIntent().getStringExtra("correoUsuario");
+        // Bloquear edición en nombre y correo
+        etNombreUsuario.setEnabled(false);
+        etCorreoUsuario.setEnabled(false);
 
-        // Mostrar los datos del usuario en los campos EditText
+        // Cargar datos del usuario desde SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("Usuario", MODE_PRIVATE);
+        nombreUsuario = prefs.getString("nombre_usuario", "");
+        correoUsuario = prefs.getString("correo_usuario", "");
+
         etNombreUsuario.setText(nombreUsuario);
         etCorreoUsuario.setText(correoUsuario);
 
-        // Listener para guardar los cambios
-        btnGuardarCambios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtener los nuevos valores
-                String nuevoNombre = etNombreUsuario.getText().toString();
-                String nuevoCorreo = etCorreoUsuario.getText().toString();
-                String nuevaContrasena = etNuevaContrasena.getText().toString();
-                String confirmarContrasena = etConfirmarContrasena.getText().toString();
+        btnGuardarCambios.setOnClickListener(v -> {
+            String nuevaContrasena = etNuevaContrasena.getText().toString().trim();
+            String confirmar = etConfirmarContrasena.getText().toString().trim();
 
-                // Verificar que las contraseñas coinciden
-                if (!nuevaContrasena.equals(confirmarContrasena)) {
-                    Toast.makeText(ModificarCredencialesActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
-                    return;  // No continuar si las contraseñas no coinciden
-                }
-
-                // Llamar a la tarea para guardar los cambios en el servidor
-                new GuardarCambiosTask().execute(nuevoNombre, nuevoCorreo, nuevaContrasena);
+            if (nuevaContrasena.isEmpty() || confirmar.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa ambos campos de contraseña", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (!nuevaContrasena.equals(confirmar)) {
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            new GuardarCambiosTask().execute(nombreUsuario, correoUsuario, nuevaContrasena);
         });
     }
 
-    // Clase AsyncTask para hacer la solicitud HTTP en segundo plano
     private class GuardarCambiosTask extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
-            String resultado = "";
             try {
-                // URL del archivo PHP en tu servidor
                 URL url = new URL(Utils.IP + "modificar_credenciales.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
 
-                // Abrir una conexión HTTP
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setDoOutput(true);
+                String data = "nombre=" + params[0] + "&email=" + params[1] + "&contrasenia=" + params[2];
 
-                // Obtener los datos enviados desde la actividad
-                String nuevoNombre = params[0];
-                String nuevoCorreo = params[1];
-                String nuevaContrasena = params[2];
-
-                // Crear los parámetros para la solicitud POST
-                String data = "nombre=" + nuevoNombre + "&email=" + nuevoCorreo + "&contrasenia=" + nuevaContrasena;
-
-                // Escribir los datos en el OutputStream
-                OutputStream os = connection.getOutputStream();
+                OutputStream os = conn.getOutputStream();
                 os.write(data.getBytes());
                 os.flush();
                 os.close();
 
-                // Verificar el código de respuesta HTTP
-                int responseCode = connection.getResponseCode();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    throw new Exception("Error en la conexión: " + responseCode);
-                }
-
-                // Leer la respuesta del servidor
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder response = new StringBuilder();
                 String line;
+
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
                 }
+
                 reader.close();
-
-                // Obtener la respuesta del servidor
-                resultado = response.toString();
-
-                // Cerrar la conexión
-                connection.disconnect();
-
-                // Log de la respuesta completa para depuración
-                Log.d("Server Response", resultado);
-
+                conn.disconnect();
+                return response.toString();
             } catch (Exception e) {
-                Log.e("Error", "Error al hacer la solicitud HTTP", e);
-                resultado = "{\"resultado\": \"0\", \"error\": \"Error en la conexión o en la consulta.\"}";
+                Log.e("GuardarCambiosTask", "Error en conexión: " + e.getMessage());
+                return "{\"resultado\": \"0\", \"error\": \"Error de conexión.\"}";
             }
-            return resultado;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            // Analizar el resultado JSON
             try {
-                // Log de la respuesta completa
-                Log.d("Response Data", result);
-
-                // Verificar si la respuesta es un JSON válido
-                JSONObject jsonObject = new JSONObject(result);
-                String resultado = jsonObject.getString("resultado");
-
-                if ("1".equals(resultado)) {
-                    // Cambios guardados correctamente
-                    Toast.makeText(ModificarCredencialesActivity.this, "Credenciales actualizadas", Toast.LENGTH_SHORT).show();
-                    finish();  // Finalizar la actividad
+                JSONObject json = new JSONObject(result);
+                if ("1".equals(json.optString("resultado"))) {
+                    Toast.makeText(ModificarCredencialesActivity.this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
-                    // Hubo un error
-                    String error = jsonObject.optString("error", "Error desconocido");
-                    Toast.makeText(ModificarCredencialesActivity.this, "Error al actualizar credenciales: " + error, Toast.LENGTH_SHORT).show();
+                    String error = json.optString("error", "Error desconocido");
+                    Toast.makeText(ModificarCredencialesActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                // Error al procesar la respuesta
-                Toast.makeText(ModificarCredencialesActivity.this, "Error al procesar la respuesta: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("JSON Error", "Error al analizar la respuesta JSON", e);
+                Toast.makeText(ModificarCredencialesActivity.this, "Error al procesar respuesta", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 }

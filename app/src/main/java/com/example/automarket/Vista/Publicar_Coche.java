@@ -67,26 +67,33 @@ public class Publicar_Coche extends AppCompatActivity {
         String precio = etPrecio.getText().toString().trim();
         String descripcion = etDescripcion.getText().toString().trim();
 
-        if (marca.isEmpty() || modelo.isEmpty() || anio.isEmpty() || kilometraje.isEmpty() || carroceria.isEmpty() || precio.isEmpty() || descripcion.isEmpty()) {
+        if (marca.isEmpty() || modelo.isEmpty() || anio.isEmpty() || kilometraje.isEmpty()
+                || carroceria.isEmpty() || precio.isEmpty() || descripcion.isEmpty()) {
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Log.d("PublicarCoche", "Marca: " + marca + ", Modelo: " + modelo + ", Año: " + anio +
-                ", Kilometraje: " + kilometraje + ", Carrocería: " + carroceria + ", Precio: " + precio +
-                ", Descripción: " + descripcion + ", Vendedor ID: " + vendedorId);
+        // Mostrar en Log los datos antes de enviar
+        Log.d("PublicarCoche", "Enviando: " + marca + ", " + modelo + ", " + anio + ", " +
+                kilometraje + ", " + carroceria + ", " + precio + ", " + descripcion +
+                ", vendedor_id=" + vendedorId);
 
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_PUBLICAR,
                 response -> {
+                    Log.d("RESPUESTA_PUBLICAR", response);  // Ver el resultado en Logcat
+
                     if (response.trim().equalsIgnoreCase("success")) {
-                        Toast.makeText(Publicar_Coche.this, "Coche publicado con éxito", Toast.LENGTH_SHORT).show();
-                        finish(); // Cierra la actividad después de publicar
+                        Toast.makeText(this, "Coche publicado con éxito", Toast.LENGTH_SHORT).show();
+                        finish(); // Cierra la pantalla
                     } else {
-                        Toast.makeText(Publicar_Coche.this, "Error al publicar: " + response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error al publicar: " + response, Toast.LENGTH_LONG).show();
                     }
                 },
-                error -> Toast.makeText(Publicar_Coche.this, "Error de conexión: " + error.toString(), Toast.LENGTH_SHORT).show()
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(this, "Error de conexión: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                }
         ) {
             @Override
             protected Map<String, String> getParams() {
@@ -98,6 +105,7 @@ public class Publicar_Coche extends AppCompatActivity {
                 params.put("carroceria", carroceria);
                 params.put("precio", precio);
                 params.put("descripcion", descripcion);
+                params.put("vendedor_id", vendedorId);
                 return params;
             }
         };

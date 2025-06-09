@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -48,6 +50,8 @@ public class Registro extends AppCompatActivity {
 
                 if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || repetirContrasena.isEmpty()) {
                     Toast.makeText(Registro.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                    Toast.makeText(Registro.this, "Correo electrónico no válido", Toast.LENGTH_SHORT).show();
                 } else if (!contrasena.equals(repetirContrasena)) {
                     Toast.makeText(Registro.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 } else {
@@ -75,17 +79,15 @@ public class Registro extends AppCompatActivity {
                         } else if (response.trim().equalsIgnoreCase("existe")) {
                             Toast.makeText(Registro.this, "El usuario ya está registrado", Toast.LENGTH_SHORT).show();
                         } else {
-                            Log.d("RegistroResponse", "Respuesta del servidor: " + response);
                             Toast.makeText(Registro.this, "Respuesta del servidor: " + response, Toast.LENGTH_LONG).show();
-                            //Toast.makeText(Registro.this, "Error al registrar usuario", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("VolleyError", "Error en la petición: " + error.getMessage());
-                        Toast.makeText(Registro.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                        Log.e("VolleyError", "Error en la petición: " + error.toString());
+                        Toast.makeText(Registro.this, "Error de conexión: " + error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override

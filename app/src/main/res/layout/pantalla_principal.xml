@@ -30,27 +30,25 @@
                 android:textColor="#00796B"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Barra de acciones -->
+            <!-- Nombre de usuario -->
+            <TextView
+                android:id="@+id/tvUsuarioNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre Usuario"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Botones debajo del nombre -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:id="@+id/tvUsuarioNombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="Nombre Usuario"
-                    android:textColor="#666666"
-                    android:textSize="12sp" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/btnPanelUsuario"
